@@ -1,10 +1,17 @@
+import { NextPage } from "next"
 import Link from "next/link"
 
-export default function Home() {
+import { buttonVariants } from "@/components/ui/button"
+
+const Home: NextPage = () => {
   return (
-    <main>
+    <>
       <p>hi world</p>
-      <Link href="/events">sign in here</Link>
-    </main>
+      <Link className={buttonVariants()} href="/events">
+        sign in here
+      </Link>
+    </>
   )
 }
+
+export default Home
