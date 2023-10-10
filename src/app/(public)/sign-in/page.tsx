@@ -22,6 +22,7 @@ const SignIn: NextPage = () => {
   const supabase = createClientComponentClient()
 
   // TODO: update to signInWithOTP
+  // TODO: add redirect to /events after auth
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const { error } = await supabase.auth.signInWithPassword({
