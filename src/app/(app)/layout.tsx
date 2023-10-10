@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator"
 
 const sidebarNavItems = [
   {
-    title: "Events",
+    title: "All events",
     href: "/events",
   },
   {

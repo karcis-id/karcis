@@ -1,10 +1,11 @@
 "use client"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useParams } from "next/navigation"
 
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { ExitIcon } from "@radix-ui/react-icons"
+import { Separator } from "./ui/separator"
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
   items: {
@@ -15,13 +16,54 @@ interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
 
 export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
   const pathname = usePathname()
+  const params = useParams()
 
-  // TODO: perhaps change to a dropdown if we have more links in the future
+  const eventItems =
+    (pathname.startsWith("/events/") &&
+      params.eventSlug && [
+        {
+          href: `/events/${params.eventSlug}/overview`,
+          title: "Event overview",
+        },
+        {
+          href: `/events/${params.eventSlug}/dashboard`,
+          title: "Participant dashboard",
+        },
+        {
+          href: `/events/${params.eventSlug}/scan`,
+          title: "Scan attendance",
+        },
+      ]) ||
+    []
+
+  // TODO: change to a dropdown (select) when mobile (xs-md)
   return (
     <nav
       className={cn("flex gap-2 md:flex-col md:space-y-1", className)}
       {...props}
     >
+      {eventItems.length > 0 && (
+        <>
+          <p className="font-semibold px-4">{params.eventSlug}</p>
+          {eventItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                buttonVariants({ variant: "ghost" }),
+                pathname === item.href
+                  ? "bg-muted hover:bg-muted"
+                  : "hover:bg-transparent hover:underline",
+                "justify-start",
+              )}
+            >
+              {item.title}
+            </Link>
+          ))}
+          <Separator className="hidden md:block" />
+        </>
+      )}
+
       {items.map((item) => (
         <Link
           key={item.href}
@@ -37,6 +79,8 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
           {item.title}
         </Link>
       ))}
+
+      <Separator className="hidden md:block" />
 
       <form action="/api/auth/sign-out" method="POST">
         <Button
