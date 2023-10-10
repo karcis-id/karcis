@@ -10,6 +10,10 @@ const sidebarNavItems = [
     href: "/events",
   },
   {
+    title: "Create event",
+    href: "/events/new",
+  },
+  {
     title: "Account",
     href: "/account",
   },

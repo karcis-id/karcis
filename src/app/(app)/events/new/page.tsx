@@ -1,49 +1,60 @@
+"use client"
 import { NextPage } from "next"
+import { useRouter, useSearchParams } from "next/navigation"
 
-const CreateEvent: NextPage = async () => {
+import { Separator } from "@/components/ui/separator"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import EventDetailsTab from "./_step-tab-components/event-details-tab"
+import EmailTemplateTab from "./_step-tab-components/email-template-tab"
+import UploadSpreadsheetTab from "./_step-tab-components/upload-spreadsheet-tab"
+import ReviewCheckoutTab from "./_step-tab-components/review-checkout-tab"
+
+const CreateEvent: NextPage = () => {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const stage = searchParams.get("stage") || "1"
+
   // TODO: handle stages using url query params
   return (
-    <>
-      <p>create new event</p>
-      <form>
-        <div className="[&_label]:block">
-          <strong>step 1:</strong>
-          <label htmlFor="name">event name</label>
-          <input id="name" />
-          <label htmlFor="description">event description</label>
-          <input id="description" />
-          <label htmlFor="location">location</label>
-          <input id="location" />
-          <label htmlFor="datetime">date & time</label>
-          <input id="datetime" />
-        </div>
-        <div className="[&_label]:block">
-          <strong>step 2:</strong>
-          <label htmlFor="subject">subject heading</label>
-          <input id="subject" />
-          <label htmlFor="template">message body</label>
-          <div>
-            <p>message variables</p>
-            <ul>
-              <li>{"{{ email }} -> email of participant"}</li>
-              <li>{"{{ name }} -> name of participant"}</li>
-            </ul>
-          </div>
-          <textarea id="template" />
-        </div>
-        <div className="[&_label]:block">
-          <strong>step 3:</strong>
-          <label htmlFor="data-file">upload participant data</label>
-          <input id="data-file" type="file" />
-        </div>
-        <div className="[&_label]:block">
-          <strong>step 4:</strong>
-          <p>review information</p>
-          <p>{"1000 participant * rp 5,000,000 -> rp 5,000,000,000"}</p>
-          <button type="submit">confirm payment</button>
-        </div>
-      </form>
-    </>
+    <div className="space-y-4">
+      <div className="space-y-2">
+        <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          Create event
+        </h1>
+        <p className="text-muted-foreground">Helpful description here...</p>
+      </div>
+      <Separator />
+      <div>
+        <Tabs
+          defaultValue="1"
+          value={stage}
+          onValueChange={(stage) => router.push(`/events/new?stage=${stage}`)}
+          className="w-full md:max-w-lg space-y-4"
+        >
+          <TabsList className="w-full grid grid-cols-4">
+            {[1, 2, 3, 4].map((i) => (
+              <TabsTrigger key={i} value={i.toString()}>
+                Step {i}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          <form>
+            <TabsContent value="1">
+              <EventDetailsTab />
+            </TabsContent>
+            <TabsContent value="2">
+              <EmailTemplateTab />
+            </TabsContent>
+            <TabsContent value="3">
+              <UploadSpreadsheetTab />
+            </TabsContent>
+            <TabsContent value="4">
+              <ReviewCheckoutTab />
+            </TabsContent>
+          </form>
+        </Tabs>
+      </div>
+    </div>
   )
 }
 
