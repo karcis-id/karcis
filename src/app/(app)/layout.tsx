@@ -26,7 +26,7 @@ const EventLayout = ({ children }: { children: React.ReactNode }) => {
       <header className="border-b w-full">
         <div className="container flex h-14 items-center justify-between">
           <Link
-            href="/"
+            href="/events"
             className="block text-center scroll-m-20 text-xl font-semibold tracking-tight"
           >
             Karcis
