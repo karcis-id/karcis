@@ -1,8 +1,9 @@
 import Link from "next/link"
-import { SunIcon, QuestionMarkCircledIcon } from "@radix-ui/react-icons"
+import { QuestionMarkCircledIcon } from "@radix-ui/react-icons"
 import { Button } from "@/components/ui/button"
 import { SidebarNav } from "@/components/sidebar-nav"
 import { Separator } from "@/components/ui/separator"
+import { ModeToggle } from "@/components/mode-toggle"
 
 const sidebarNavItems = [
   {
@@ -35,9 +36,7 @@ const EventLayout = ({ children }: { children: React.ReactNode }) => {
               <QuestionMarkCircledIcon className="mr-2 h-4 w-4" />
               Help
             </Button>
-            <Button variant="outline" size="icon">
-              <SunIcon className="w-4 h-4" />
-            </Button>
+            <ModeToggle />
           </div>
         </div>
       </header>
