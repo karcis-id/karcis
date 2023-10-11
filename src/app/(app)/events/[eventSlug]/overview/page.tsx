@@ -1,15 +1,17 @@
-import { NextPage } from "next"
+import { Separator } from "@/components/ui/separator"
 
-const EventOverview: NextPage = async ({
-  params,
-}: {
-  params: { eventSlug: string }
-}) => {
+const EventOverview = ({ params }: { params: { eventSlug: string } }) => {
   return (
-    <>
-      event id = {params.eventSlug}
-      <p>overview</p>
-    </>
+    <div className="space-y-4">
+      <div className="space-y-2">
+        <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          [Event name] overview
+        </h1>
+        <p className="text-muted-foreground">Helpful description here...</p>
+      </div>
+      <Separator />
+      <div>content goes here</div>
+    </div>
   )
 }
 

@@ -31,7 +31,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
         },
         {
           href: `/events/${params.eventSlug}/scan`,
-          title: "Scan attendance",
+          title: "Scan code",
         },
       ]) ||
     []
