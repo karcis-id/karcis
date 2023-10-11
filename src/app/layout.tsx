@@ -17,9 +17,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full">
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <body className={inter.className + " h-full"}>{children}</body>
-      </ThemeProvider>
+      <body className={inter.className + " h-full"}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }
