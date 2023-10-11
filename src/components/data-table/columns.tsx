@@ -62,8 +62,8 @@ export const columns: ColumnDef<Participant>[] = [
         variant="secondary"
         className={cn(
           info.getValue() === "Present"
-            ? "bg-green-200 hover:bg-green-200"
-            : "bg-red-200 hover:bg-red-200",
+            ? "bg-green-200 hover:bg-green-200 dark:bg-green-300 dark:text-background"
+            : "bg-red-200 hover:bg-red-200 dark:bg-red-300 dark:text-background",
         )}
       >
         {info.getValue() as string}
