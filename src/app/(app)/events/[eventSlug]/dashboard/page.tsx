@@ -1,6 +1,10 @@
 import { Separator } from "@/components/ui/separator"
-import { Participant, ParticipantStatus, columns } from "./columns"
-import { DataTable } from "./data-table"
+import {
+  Participant,
+  ParticipantStatus,
+  columns,
+  DataTable,
+} from "@/components/data-table"
 
 const data: Participant[] = [
   {
