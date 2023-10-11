@@ -3,7 +3,7 @@ import Link from "next/link"
 import { PlusCircledIcon } from "@radix-ui/react-icons"
 
 import { Badge } from "@/components/ui/badge"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import {
   Card,
@@ -16,6 +16,7 @@ import {
 import { cn } from "@/lib/utils"
 
 const Events: NextPage = () => {
+  // TODO: add ui for empty state
   return (
     <div className="space-y-4">
       <div className="flex items-start justify-between">

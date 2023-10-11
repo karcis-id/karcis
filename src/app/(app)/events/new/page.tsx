@@ -38,6 +38,7 @@ const CreateEvent: NextPage = () => {
               </TabsTrigger>
             ))}
           </TabsList>
+          {/* TODO: use shadcn's form & zod */}
           <form>
             <TabsContent value="1">
               <EventDetailsTab />

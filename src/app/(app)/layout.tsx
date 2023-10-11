@@ -32,6 +32,7 @@ const EventLayout = ({ children }: { children: React.ReactNode }) => {
             Karcis
           </Link>
           <div className="flex items-center gap-4">
+            {/* TODO: change to helpful dialog & move to /components */}
             <Button variant="outline">
               <QuestionMarkCircledIcon className="mr-2 h-4 w-4" />
               Help

@@ -86,7 +86,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
         <Button
           type="submit"
           variant="link"
-          className="w-full justify-start text-black"
+          className="w-full justify-start text-destructive"
         >
           <ExitIcon className="mr-2 h-4 w-4" />
           Sign out
