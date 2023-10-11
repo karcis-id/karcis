@@ -44,10 +44,6 @@ const ReviewCheckoutTab = () => {
               <span className="font-medium">Event name:&nbsp;</span>PKPM 2023
             </li>
             <li>
-              <span className="font-medium">Event description:&nbsp;</span>
-              Short description of PKPM 2023 which may span multiple lines
-            </li>
-            <li>
               <span className="font-medium">Location:&nbsp;</span>Kampus Binus
               Kemanggisan
             </li>

@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { DatePicker } from "@/components/date-picker"
 
 const EventDetailsTab = () => {
   return (
@@ -26,19 +27,18 @@ const EventDetailsTab = () => {
           <Input id="name" placeholder="John's birthday" />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="description">Event description</Label>
-          <Input
-            id="description"
-            placeholder="A short description of the event"
-          />
-        </div>
-        <div className="space-y-2">
           <Label htmlFor="location">Location</Label>
           <Input id="location" placeholder="Kampus Binus Kemanggisan" />
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="datetime">Date and time</Label>
-          <Input id="datetime" placeholder="get the datepicker component" />
+        <div className="flex items-center gap-4 [&>div]:space-y-2">
+          <div className="w-full">
+            <Label htmlFor="location">Date</Label>
+            <DatePicker />
+          </div>
+          <div className="w-full">
+            <Label htmlFor="time">Time</Label>
+            <Input id="time" type="time" />
+          </div>
         </div>
       </CardContent>
       <CardFooter>
