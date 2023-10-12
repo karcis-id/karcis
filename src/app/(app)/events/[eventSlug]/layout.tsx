@@ -1,18 +1,43 @@
 import { notFound } from "next/navigation"
+import { cookies } from "next/headers"
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
+import { Database } from "@/lib/types/supabase"
+import { formatSlug } from "@/lib/utils"
 
-const EventLayout = ({
+const isValidEvent = async (eventSlug: string) => {
+  const eventId = parseInt(eventSlug.split("-")[0].substring(1))
+  if (!eventId) return false
+
+  const supabase = createServerComponentClient<Database>({ cookies })
+  const { data: event, error } = await supabase
+    .from("events")
+    .select("event_id, name")
+    .eq("event_id", eventId)
+    .single()
+
+  console.log("fetched: ", event)
+  if (error) {
+    console.log(error)
+  }
+
+  return event && formatSlug(event.event_id, event.name) === eventSlug
+}
+
+const EventLayout = async ({
   params,
   children,
 }: {
   params: { eventSlug: string }
   children: React.ReactNode
 }) => {
-  // TODO: call not found if eventSlug isn't in events table
-  if (params.eventSlug !== "test") {
+  if (!(await isValidEvent(params.eventSlug))) {
+    console.log("this should print")
     notFound()
   }
 
-  return children
+  // BUG: this is a bug(?) in next.js with async layout.tsx
+  // https://github.com/vercel/next.js/issues/49280#issuecomment-1536915621
+  return <>{children}</>
 }
 
 export default EventLayout
