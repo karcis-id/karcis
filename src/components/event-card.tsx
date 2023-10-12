@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button, buttonVariants } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
+import { cn, formatSlug } from "@/lib/utils"
 import { Database } from "@/lib/types/supabase"
 
 // TODO: make a script to autogenerate friendlier types? e.g. Event
@@ -32,14 +32,6 @@ const formatDatetime = (dt: string) =>
     minute: "2-digit", // minutes (leading zero if single digit)
     hour12: false, // use 24-hour format
   })
-
-const formatSlug = (event: Event) => {
-  const safeName = event.name
-    .toLowerCase()
-    .replaceAll(/[^\w\d\s-]/g, "")
-    .replaceAll(/\s+/g, "-")
-  return `e${event.event_id}-${safeName}`
-}
 
 export const EventCard = ({ event }: EventCardProps) => {
   if (!event) return null
@@ -96,7 +88,7 @@ export const EventCard = ({ event }: EventCardProps) => {
         {/* TODO: create a format slug function, e.g. formatSlug(event) */}
         {event.is_verified ? (
           <Link
-            href={`/events/${formatSlug(event)}/overview`}
+            href={`/events/${formatSlug(event.event_id, event.name)}/overview`}
             className={cn(buttonVariants({ variant: "secondary" }), "w-full")}
           >
             View event
