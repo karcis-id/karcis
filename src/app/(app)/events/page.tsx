@@ -10,7 +10,10 @@ import { Database } from "@/lib/types/supabase"
 
 const getEvents = async () => {
   const supabase = createServerComponentClient<Database>({ cookies })
-  const { data: events, error } = await supabase.from("events").select()
+  const { data: events, error } = await supabase
+    .from("events")
+    .select()
+    .order("created_at", { ascending: false })
 
   console.log("fetched: ", events)
   if (error) {
