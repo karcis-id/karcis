@@ -14,26 +14,30 @@ export type Participant = {
   id: number
   name: string
   email: string
-  phone: string
-  status: string
+  status: boolean
 }
 
 export const columns: ColumnDef<Participant>[] = [
   {
     id: "select",
     header: ({ table }) => (
+      // align-middle to stop the checkbox flickering when toggled
       <Checkbox
         checked={table.getIsAllRowsSelected()}
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
+        className="align-middle"
       />
     ),
     cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
+      <div>
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+          className="align-middle"
+        />
+      </div>
     ),
     enableSorting: false,
     enableHiding: false,
@@ -51,22 +55,18 @@ export const columns: ColumnDef<Participant>[] = [
     header: "Email",
   },
   {
-    accessorKey: "phone",
-    header: "Phone number",
-  },
-  {
     accessorKey: "status",
     header: "Status",
     cell: (info) => (
       <Badge
         variant="secondary"
         className={cn(
-          info.getValue() === "Present"
+          info.getValue()
             ? "bg-green-200 hover:bg-green-200 dark:bg-green-300 dark:text-background"
             : "bg-red-200 hover:bg-red-200 dark:bg-red-300 dark:text-background",
         )}
       >
-        {info.getValue() as string}
+        {info.getValue() ? "Present" : "Absent"}
       </Badge>
     ),
   },

@@ -5,58 +5,36 @@ import { Separator } from "@/components/ui/separator"
 import { Participant, columns, DataTable } from "@/components/data-table"
 import { Database } from "@/lib/types/supabase"
 
-// supabase client uses cookies, which makes this call dynamic & non-[memoizable & cacheable]
-// and since layouts can't pass data to pages, all pages in /events/[eventSlug]/.* will
-// have to fetch the event individually, leading to multiple requests being made to the same
-// data from what should've been only 1 request...
-// TODO: find a way to memoize request or cache the data
-const getEvent = async (eventSlug: string) => {
+const getParticipants = async (eventSlug: string) => {
   // checking is already done in layouts.tsx, so we can assume the eventSlug is already valid
   const eventId = parseInt(eventSlug.split("-")[0].substring(1))
   const supabase = createServerComponentClient<Database>({ cookies })
-  const { data: event, error } = await supabase
-    .from("events")
-    .select()
-    .eq("event_id", eventId)
-    .single()
+  const { data: participants, error } = await supabase
+    .from("participants")
+    .select("*, events(count)")
+    .eq("events.event_id", eventId)
+    .order("participant_id")
 
   if (error) {
     console.log(error)
   }
 
-  return event
+  return participants
 }
-
-const data: Participant[] = [
-  {
-    id: 1,
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phone: "123456789",
-    status: "Present",
-  },
-  {
-    id: 2,
-    name: "Luke Smith",
-    email: "luke.smith@example.com",
-    phone: "123456789",
-    status: "Present",
-  },
-  {
-    id: 3,
-    name: "Bard Altman",
-    email: "bard.altman@example.com",
-    phone: "123456789",
-    status: "Absent",
-  },
-]
 
 const EventDashboard = async ({
   params,
 }: {
   params: { eventSlug: string }
 }) => {
-  const event = await getEvent(params.eventSlug)
+  const participants = await getParticipants(params.eventSlug)
+  const data: Participant[] =
+    participants?.map((p) => ({
+      id: p.participant_id,
+      name: p.name,
+      email: p.email,
+      status: p.is_checked_in,
+    })) ?? []
 
   return (
     <div className="space-y-4">
