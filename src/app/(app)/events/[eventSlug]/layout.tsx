@@ -11,7 +11,7 @@ const isValidEvent = async (eventSlug: string) => {
   const supabase = createServerComponentClient<Database>({ cookies })
   const { data: event, error } = await supabase
     .from("events")
-    .select("event_id, name")
+    .select("event_id, name, is_verified")
     .eq("event_id", eventId)
     .single()
 
@@ -20,7 +20,11 @@ const isValidEvent = async (eventSlug: string) => {
     console.log(error)
   }
 
-  return event && formatSlug(event.event_id, event.name) === eventSlug
+  return (
+    event &&
+    event.is_verified &&
+    formatSlug(event.event_id, event.name) === eventSlug
+  )
 }
 
 const EventLayout = async ({
