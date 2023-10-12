@@ -88,7 +88,7 @@ export const EventCard = ({ event }: EventCardProps) => {
         {/* TODO: create a format slug function, e.g. formatSlug(event) */}
         {event.is_verified ? (
           <Link
-            href={`/events/${formatSlug(event.event_id, event.name)}/overview`}
+            href={`/events/${formatSlug(event.event_id, event.name)}/dashboard`}
             className={cn(buttonVariants({ variant: "secondary" }), "w-full")}
           >
             View event

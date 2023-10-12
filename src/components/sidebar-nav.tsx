@@ -21,10 +21,10 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
   const eventItems =
     (pathname.startsWith("/events/") &&
       params.eventSlug && [
-        {
-          href: `/events/${params.eventSlug}/overview`,
-          title: "Event overview",
-        },
+        // {
+        //   href: `/events/${params.eventSlug}/overview`,
+        //   title: "Event overview",
+        // },
         {
           href: `/events/${params.eventSlug}/dashboard`,
           title: "Participant dashboard",
