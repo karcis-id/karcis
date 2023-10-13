@@ -4,6 +4,7 @@ import { Table } from "@tanstack/react-table"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Dispatch, SetStateAction } from "react"
+import { useToast } from "../ui/use-toast"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -14,8 +15,11 @@ interface DataTableToolbarProps<TData> {
 const toggleStatuses = async <TData,>(
   table: Table<TData>,
   setData: Dispatch<SetStateAction<TData[]>>,
+  toast: any, // add the type later
 ) => {
   const selectedRowModels = table.getFilteredSelectedRowModel().rows
+  if (selectedRowModels.length === 0) return
+
   const ids = selectedRowModels.map((rm) => table.getRow(rm.id).getValue("id"))
   const supabase = createClientComponentClient()
   // NOTE: batch updates not supported atm
@@ -24,6 +28,11 @@ const toggleStatuses = async <TData,>(
 
   if (error) {
     console.log(error)
+    await toast({
+      title: "Uh oh! Something went wrong.",
+      description: "Something went wrong with your request",
+      variant: "destructive",
+    })
     return
   }
 
@@ -35,7 +44,6 @@ const toggleStatuses = async <TData,>(
     },
     {} as { [id: number]: boolean },
   )
-
   setData((prev) =>
     prev.map((row) => {
       // @ts-ignore
@@ -44,14 +52,19 @@ const toggleStatuses = async <TData,>(
       return { ...row, status: newStatus }
     }),
   )
-
   selectedRowModels.forEach((rm) => table.getRow(rm.id).toggleSelected())
+  await toast({
+    title: "Success!",
+    description: "Participant statuses successfully updated",
+  })
 }
 
 export const DataTableToolbar = <TData,>({
   table,
   setData,
 }: DataTableToolbarProps<TData>) => {
+  const { toast } = useToast()
+
   // TODO: use global filter here
   return (
     <div className="flex items-center justify-between">
@@ -65,7 +78,7 @@ export const DataTableToolbar = <TData,>({
       />
       <Button
         variant="outline"
-        onClick={async () => await toggleStatuses(table, setData)}
+        onClick={async () => await toggleStatuses(table, setData, toast)}
       >
         Toggle status
       </Button>
