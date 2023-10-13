@@ -4,17 +4,18 @@ import { useRouter, useSearchParams } from "next/navigation"
 
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import EventDetailsTab from "./_step-tab-components/event-details-tab"
-import EmailTemplateTab from "./_step-tab-components/email-template-tab"
-import UploadSpreadsheetTab from "./_step-tab-components/upload-spreadsheet-tab"
-import ReviewCheckoutTab from "./_step-tab-components/review-checkout-tab"
+import EventDetailsTab from "./components/event-details-tab"
+import EmailTemplateTab from "./components/email-template-tab"
+import UploadSpreadsheetTab from "./components/upload-spreadsheet-tab"
+import ReviewCheckoutTab from "./components/review-checkout-tab"
+import { useState } from "react"
 
 const CreateEvent: NextPage = () => {
+  const [formData, setFormData] = useState({})
   const router = useRouter()
   const searchParams = useSearchParams()
   const stage = searchParams.get("stage") || "1"
 
-  // TODO: handle stages using url query params
   return (
     <div className="space-y-4">
       <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight">
@@ -35,21 +36,18 @@ const CreateEvent: NextPage = () => {
               </TabsTrigger>
             ))}
           </TabsList>
-          {/* TODO: use shadcn's form & zod */}
-          <form>
-            <TabsContent value="1">
-              <EventDetailsTab />
-            </TabsContent>
-            <TabsContent value="2">
-              <EmailTemplateTab />
-            </TabsContent>
-            <TabsContent value="3">
-              <UploadSpreadsheetTab />
-            </TabsContent>
-            <TabsContent value="4">
-              <ReviewCheckoutTab />
-            </TabsContent>
-          </form>
+          <TabsContent value="1">
+            <EventDetailsTab formData={formData} setFormData={setFormData} />
+          </TabsContent>
+          <TabsContent value="2">
+            <EmailTemplateTab />
+          </TabsContent>
+          <TabsContent value="3">
+            <UploadSpreadsheetTab />
+          </TabsContent>
+          <TabsContent value="4">
+            <ReviewCheckoutTab />
+          </TabsContent>
         </Tabs>
       </div>
     </div>
