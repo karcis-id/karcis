@@ -30,14 +30,9 @@ const Events = async () => {
   return (
     <div className="space-y-4">
       <div className="flex items-start justify-between">
-        <div className="space-y-2">
-          <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-            Your events
-          </h1>
-          <p className="text-muted-foreground">
-            Your upcoming and past events all in one place
-          </p>
-        </div>
+        <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          Your events
+        </h1>
         <Link href="/events/new" className={buttonVariants()}>
           <PlusCircledIcon className="mr-2 h-4 w-4" /> Create event
         </Link>

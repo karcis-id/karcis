@@ -17,12 +17,9 @@ const CreateEvent: NextPage = () => {
   // TODO: handle stages using url query params
   return (
     <div className="space-y-4">
-      <div className="space-y-2">
-        <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-          Create event
-        </h1>
-        <p className="text-muted-foreground">Helpful description here...</p>
-      </div>
+      <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+        Create event
+      </h1>
       <Separator />
       <div>
         <Tabs
