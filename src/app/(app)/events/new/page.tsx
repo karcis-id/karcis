@@ -23,37 +23,32 @@ const CreateEvent: NextPage = () => {
         Create event
       </h1>
       <Separator />
-      <div>
-        <Tabs
-          defaultValue="1"
-          value={stage}
-          onValueChange={(stage) => router.push(`/events/new?stage=${stage}`)}
-          className="w-full md:max-w-lg space-y-4"
-        >
-          <TabsList className="w-full grid grid-cols-4">
-            {[1, 2, 3, 4].map((i) => (
-              <TabsTrigger key={i} value={i.toString()}>
-                Step {i}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          <TabsContent value="1">
-            <EventDetailsTab formData={formData} setFormData={setFormData} />
-          </TabsContent>
-          <TabsContent value="2">
-            <EmailTemplateTab formData={formData} setFormData={setFormData} />
-          </TabsContent>
-          <TabsContent value="3">
-            <UploadSpreadsheetTab
-              formData={formData}
-              setFormData={setFormData}
-            />
-          </TabsContent>
-          <TabsContent value="4">
-            <ReviewCheckoutTab />
-          </TabsContent>
-        </Tabs>
-      </div>
+      <Tabs
+        defaultValue="1"
+        value={stage}
+        onValueChange={(stage) => router.push(`/events/new?stage=${stage}`)}
+        className="w-full md:max-w-lg space-y-4"
+      >
+        <TabsList className="w-full grid grid-cols-4">
+          {[1, 2, 3, 4].map((i) => (
+            <TabsTrigger disabled key={i} value={i.toString()}>
+              Step {i}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        <TabsContent value="1">
+          <EventDetailsTab formData={formData} setFormData={setFormData} />
+        </TabsContent>
+        <TabsContent value="2">
+          <EmailTemplateTab formData={formData} setFormData={setFormData} />
+        </TabsContent>
+        <TabsContent value="3">
+          <UploadSpreadsheetTab formData={formData} setFormData={setFormData} />
+        </TabsContent>
+        <TabsContent value="4">
+          <ReviewCheckoutTab formData={formData} />
+        </TabsContent>
+      </Tabs>
     </div>
   )
 }

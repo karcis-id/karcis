@@ -1,6 +1,4 @@
-import Image from "next/image"
-
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -9,16 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
 import { Separator } from "@/components/ui/separator"
-import { EyeOpenIcon } from "@radix-ui/react-icons"
 import {
   Table,
   TableBody,
@@ -28,8 +17,10 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { EmailPreviewDialog } from "@/components/email-preview-dialog"
+import { cn } from "@/lib/utils"
+import Link from "next/link"
 
-const ReviewCheckoutTab = () => {
+const ReviewCheckoutTab = ({ formData }: any) => {
   return (
     <Card>
       <CardHeader>
@@ -41,24 +32,27 @@ const ReviewCheckoutTab = () => {
           <p className="font-semibold">Event details:</p>
           <ul className="my-6 ml-6 list-disc text-sm">
             <li>
-              <span className="font-medium">Event name:&nbsp;</span>PKPM 2023
+              <span className="font-semibold">Event name:&nbsp;</span>
+              {formData.name ?? "-"}
             </li>
             <li>
-              <span className="font-medium">Location:&nbsp;</span>Kampus Binus
-              Kemanggisan
+              <span className="font-semibold">Location:&nbsp;</span>
+              {formData.location ?? "-"}
             </li>
             <li>
-              <span className="font-medium">Date:&nbsp;</span>Tuesday, 10 Oct
-              2023
+              <span className="font-semibold">Date:&nbsp;</span>
+              {formData.date?.toLocaleString() ?? "-"}
             </li>
             <li>
-              <span className="font-medium">Time:&nbsp;</span>08:00 WIB
+              <span className="font-semibold">Time:&nbsp;</span>
+              {formData.time ?? "-"}
             </li>
           </ul>
         </div>
         <Separator />
         <div className="space-y-2">
           <p className="font-semibold">Email template:</p>
+          {/* TODO: generate email preview dynamically */}
           <EmailPreviewDialog />
         </div>
         <Separator />
@@ -78,14 +72,22 @@ const ReviewCheckoutTab = () => {
                 <TableCell>Service fee</TableCell>
                 <TableCell className="text-right">x450</TableCell>
                 <TableCell className="text-right">Rp5,000</TableCell>
-                <TableCell className="text-right">Rp2,250,000</TableCell>
+                <TableCell className="text-right font-semibold">
+                  Rp2,250,000
+                </TableCell>
               </TableRow>
             </TableBody>
           </Table>
         </div>
       </CardContent>
       {/* TODO: integrate payment gateway (stripe/xendit) */}
-      <CardFooter>
+      <CardFooter className="gap-4">
+        <Link
+          href="?stage=3"
+          className={cn(buttonVariants({ variant: "secondary" }), "w-full")}
+        >
+          Previous
+        </Link>
         <Button type="submit" className="w-full">
           Confirm payment
         </Button>
