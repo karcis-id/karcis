@@ -11,6 +11,7 @@ import ReviewCheckoutTab from "./components/review-checkout-tab"
 import { useState } from "react"
 
 const CreateEvent: NextPage = () => {
+  // TODO: sync this state with the url so that data persists if page is refreshed
   const [formData, setFormData] = useState({})
   const router = useRouter()
   const searchParams = useSearchParams()

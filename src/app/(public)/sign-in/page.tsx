@@ -37,7 +37,7 @@ const SignIn: NextPage = () => {
 
   return (
     <>
-      <div className="bg-slate-100 min-h-screen px-2 py-8 space-y-10">
+      <div className="bg-muted min-h-screen px-2 py-8 space-y-10">
         <Link
           href="/"
           className="block text-center scroll-m-20 text-xl font-semibold tracking-tight"
