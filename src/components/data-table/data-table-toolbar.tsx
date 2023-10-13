@@ -1,18 +1,19 @@
-import {
-  createClientComponentClient,
-  createServerComponentClient,
-} from "@supabase/auth-helpers-nextjs"
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { Table } from "@tanstack/react-table"
 
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { useRouter } from "next/navigation"
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime"
+import { Dispatch, SetStateAction } from "react"
+
+interface DataTableToolbarProps<TData> {
+  table: Table<TData>
+  setData: Dispatch<SetStateAction<TData[]>>
+}
 
 // TODO: once we can change row values manually, show a toast message
 const toggleStatuses = async <TData,>(
   table: Table<TData>,
-  router: AppRouterInstance,
+  setData: Dispatch<SetStateAction<TData[]>>,
 ) => {
   const selectedRowModels = table.getFilteredSelectedRowModel().rows
   const ids = selectedRowModels.map((rm) => table.getRow(rm.id).getValue("id"))
@@ -26,20 +27,31 @@ const toggleStatuses = async <TData,>(
     return
   }
 
-  selectedRowModels.forEach((rm) => table.getRow(rm.id).toggleSelected())
-  // HACK: can't seem to find a way to change the row values manually
-  // so refresh the page to refetch the data
-  router.refresh()
-}
+  const lookupStatusById = selectedRowModels.reduce(
+    (acc, cur) => {
+      const row = table.getRow(cur.id)
+      acc[row.getValue("id") as number] = !row.getValue("status")
+      return acc
+    },
+    {} as { [id: number]: boolean },
+  )
 
-interface DataTableToolbarProps<TData> {
-  table: Table<TData>
+  setData((prev) =>
+    prev.map((row) => {
+      // @ts-ignore
+      const newStatus = lookupStatusById[row.id]
+      if (newStatus === undefined) return row
+      return { ...row, status: newStatus }
+    }),
+  )
+
+  selectedRowModels.forEach((rm) => table.getRow(rm.id).toggleSelected())
 }
 
 export const DataTableToolbar = <TData,>({
   table,
+  setData,
 }: DataTableToolbarProps<TData>) => {
-  const router = useRouter()
   // TODO: use global filter here
   return (
     <div className="flex items-center justify-between">
@@ -53,7 +65,7 @@ export const DataTableToolbar = <TData,>({
       />
       <Button
         variant="outline"
-        onClick={async () => await toggleStatuses(table, router)}
+        onClick={async () => await toggleStatuses(table, setData)}
       >
         Toggle status
       </Button>

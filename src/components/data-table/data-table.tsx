@@ -27,11 +27,12 @@ interface DataTableProps<TData, TValue> {
 
 export const DataTable = <TData, TValue>({
   columns,
-  data,
+  data: tdata,
 }: DataTableProps<TData, TValue>) => {
   // TODO: use global fuzzy filter
   const [globalFilter, setGlobalFilter] = useState("")
   const [rowSelection, setRowSelection] = useState({})
+  const [data, setData] = useState(tdata)
   const table = useReactTable({
     data,
     columns,
@@ -50,7 +51,7 @@ export const DataTable = <TData, TValue>({
   // TODO: separate table into different components
   return (
     <div className="space-y-2">
-      <DataTableToolbar table={table} />
+      <DataTableToolbar table={table} setData={setData} />
 
       <div className="rounded-md border">
         <Table>
