@@ -41,7 +41,7 @@ const CreateEvent: NextPage = () => {
             <EventDetailsTab formData={formData} setFormData={setFormData} />
           </TabsContent>
           <TabsContent value="2">
-            <EmailTemplateTab />
+            <EmailTemplateTab formData={formData} setFormData={setFormData} />
           </TabsContent>
           <TabsContent value="3">
             <UploadSpreadsheetTab />

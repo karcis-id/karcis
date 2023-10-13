@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form"
-import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useRouter } from "next/navigation"
+import * as z from "zod"
 
 import {
   Card,
@@ -21,9 +22,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { useRouter } from "next/navigation"
 
-export const formSchema = z.object({
+const formSchema = z.object({
   name: z
     .string()
     .trim()
