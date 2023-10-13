@@ -1,18 +1,19 @@
 "use client"
 import { useEffect, useState } from "react"
-import { useZxing } from "react-zxing"
+// import { useZxing } from "react-zxing"
+import { QrReader } from "react-qr-reader"
 
 import { Separator } from "@/components/ui/separator"
 
 const EventScan = ({ params }: { params: { eventSlug: string } }) => {
   const [fuck, setFuck] = useState("")
-  const { ref } = useZxing({
-    onDecodeResult(result) {
-      // alert(res)
-      setFuck(result.getText())
-    },
-    constraints: { video: { width: 1280, height: 720 } },
-  })
+  // const { ref } = useZxing({
+  //   onDecodeResult(result) {
+  //     // alert(res)
+  //     setFuck(result.getText())
+  //   },
+  //   constraints: { video: { width: 1280, height: 720 } },
+  // })
   // const vidRef = useRef()
   // const getVideo = async () => {
   //   const stream = await navigator.mediaDevices.getUserMedia({
@@ -39,7 +40,18 @@ const EventScan = ({ params }: { params: { eventSlug: string } }) => {
       <div>
         content goes here
         {fuck}
-        <video ref={ref} className="w-96 h-96" />
+        <QrReader
+          onResult={(result, error) => {
+            if (!!result) {
+              setFuck(result?.text)
+            }
+
+            if (!!error) {
+              console.info(error)
+            }
+          }}
+          style={{ width: "100%" }}
+        />
       </div>
     </div>
   )
