@@ -40,9 +40,11 @@ const EventDashboard = async ({
     <div className="space-y-4">
       <div className="space-y-2">
         <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-          Participants dashboard
+          Dashboard
         </h1>
-        <p className="text-muted-foreground">Helpful description here...</p>
+        <p className="text-muted-foreground">
+          Manage and track participant attendance in your dashboard
+        </p>
       </div>
       <Separator />
       <DataTable columns={columns} data={data} />

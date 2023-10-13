@@ -27,7 +27,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
         // },
         {
           href: `/events/${params.eventSlug}/dashboard`,
-          title: "Participant dashboard",
+          title: "Dashboard",
         },
         {
           href: `/events/${params.eventSlug}/scan`,
