@@ -19,6 +19,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -32,9 +33,20 @@ import {
 } from "@/components/ui/table"
 import { cn } from "@/lib/utils"
 
+const MAX_SIZE = 1024 * 1024 * 2000 // 2 GB
+const ACCEPTED_FILE_TYPES = ["text/csv"]
+
 // TODO: csv file validation (along with contents)
 const formSchema = z.object({
-  file: z.any(),
+  file: z
+    .any()
+    .refine((file) => file?.size > 0, { message: "File cannot be empty" })
+    .refine((file) => file?.size < MAX_SIZE, {
+      message: "Max file size is 2 GB",
+    })
+    .refine((file) => ACCEPTED_FILE_TYPES.includes(file?.type), {
+      message: "Only *.csv files are accepted",
+    }),
 })
 
 const sampleDataHeaders = ["Name", "Email", "Phone"]
@@ -61,8 +73,10 @@ const UploadSpreadsheetTab = ({ formData, setFormData }: any) => {
   // TODO: write a decent default email body template
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    values: {
+      file: formData.file ?? null,
+    },
   })
-  const { isDirty, isValid } = form.formState
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
     // @ts-ignore
@@ -105,18 +119,24 @@ const UploadSpreadsheetTab = ({ formData, setFormData }: any) => {
             <FormField
               control={form.control}
               name="file"
-              render={({ field }) => (
+              render={({ field: { value, onChange, ...props } }) => (
                 <FormItem>
                   <FormLabel>Upload file</FormLabel>
                   <FormControl>
                     <Input
+                      {...props}
+                      required
                       type="file"
+                      accept="text/csv"
                       className="hover:cursor-pointer"
-                      {...field}
+                      onChange={(e) =>
+                        onChange(e.target.files && e.target.files[0])
+                      }
                     />
                   </FormControl>
                   {/* TODO: dynamically render this with row count of uploaded file */}
                   <FormDescription>Total participants: 450</FormDescription>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -128,11 +148,7 @@ const UploadSpreadsheetTab = ({ formData, setFormData }: any) => {
             >
               Previous
             </Link>
-            <Button
-              type="submit"
-              disabled={!(isValid && isDirty)}
-              className="w-full"
-            >
+            <Button type="submit" className="w-full">
               Next
             </Button>
           </CardFooter>

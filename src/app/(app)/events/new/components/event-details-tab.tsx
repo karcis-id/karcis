@@ -34,7 +34,9 @@ const formSchema = z.object({
     .trim()
     .min(3, { message: "Must be 3 or more characters long" })
     .max(100, { message: "Must be 100 or fewer characters long" }),
-  date: z.date().min(new Date(), { message: "Date should be in the future" }),
+  date: z
+    .date({ invalid_type_error: "Date is required" })
+    .min(new Date(), { message: "Date should be in the future" }),
   time: z
     .string()
     .trim()
@@ -54,14 +56,10 @@ const EventDetailsTab = ({
     values: {
       name: formData.name ?? "",
       location: formData.location ?? "",
-      date: formData.date ?? "",
+      date: formData.date ?? null,
       time: formData.time ?? "",
     },
   })
-  // NOTE: we're not using isDirty because when the user navigates from another
-  // step, isDirty will be set to false, making the button disabled even when
-  // all fields have been filled
-  const { isValid } = form.formState
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
     // @ts-ignore
@@ -86,6 +84,7 @@ const EventDetailsTab = ({
                   <FormLabel>Event name</FormLabel>
                   <FormControl>
                     <Input
+                      required
                       placeholder="e.g., Annual conference 2023"
                       {...field}
                     />
@@ -102,6 +101,7 @@ const EventDetailsTab = ({
                   <FormLabel>Location</FormLabel>
                   <FormControl>
                     <Input
+                      required
                       placeholder="e.g., Kuala Lumpur City Centre (KLCC)"
                       {...field}
                     />
@@ -129,7 +129,7 @@ const EventDetailsTab = ({
                   <FormItem className="w-full">
                     <FormLabel>Time</FormLabel>
                     <FormControl>
-                      <Input type="time" {...field} />
+                      <Input required type="time" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -138,7 +138,7 @@ const EventDetailsTab = ({
             </div>
           </CardContent>
           <CardFooter>
-            <Button type="submit" disabled={!isValid} className="w-full">
+            <Button type="submit" className="w-full">
               Next
             </Button>
           </CardFooter>

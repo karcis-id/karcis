@@ -29,6 +29,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form"
 
 const formSchema = z.object({
@@ -52,7 +53,6 @@ const EmailTemplateTab = ({ formData, setFormData }: any) => {
       emailBody: formData.emailBody ?? "",
     },
   })
-  const { isValid } = form.formState
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
     // @ts-ignore
@@ -77,10 +77,12 @@ const EmailTemplateTab = ({ formData, setFormData }: any) => {
                   <FormLabel>Subject heading</FormLabel>
                   <FormControl>
                     <Input
+                      required
                       placeholder="e.g., Invitation: Annual conference 2023"
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -131,11 +133,13 @@ const EmailTemplateTab = ({ formData, setFormData }: any) => {
                   </div>
                   <FormControl>
                     <Textarea
+                      required
                       placeholder="Your email message body..."
                       className="h-24"
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -148,7 +152,7 @@ const EmailTemplateTab = ({ formData, setFormData }: any) => {
             >
               Previous
             </Link>
-            <Button type="submit" disabled={!isValid} className="w-full">
+            <Button type="submit" className="w-full">
               Next
             </Button>
           </CardFooter>
