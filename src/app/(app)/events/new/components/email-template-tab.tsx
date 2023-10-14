@@ -4,7 +4,6 @@ import * as z from "zod"
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -61,7 +60,6 @@ const EmailTemplateTab = ({ formData, setFormData }: any) => {
         <form onSubmit={form.handleSubmit(handleSubmit)}>
           <CardHeader>
             <CardTitle>Email template</CardTitle>
-            <CardDescription>Descriptions are always helpful</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormField

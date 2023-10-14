@@ -7,7 +7,6 @@ import * as z from "zod"
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -32,7 +31,6 @@ import {
 } from "@/components/ui/table"
 import { cn, isValidCsv, parseCsv } from "@/lib/utils"
 import { InfoBox } from "@/components/info-box"
-import { useState } from "react"
 
 const MAX_SIZE = 1024 * 1024 * 2000 // 2 GB
 const ACCEPTED_FILE_TYPES = ["text/csv"]
@@ -105,7 +103,6 @@ const UploadSpreadsheetTab = ({ setFormData }: any) => {
         <form onSubmit={form.handleSubmit(handleSubmit)}>
           <CardHeader>
             <CardTitle>Upload parcitipants spreadsheet</CardTitle>
-            <CardDescription>Descriptions are always helpful</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <InfoBox

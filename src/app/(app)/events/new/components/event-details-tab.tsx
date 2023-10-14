@@ -6,7 +6,6 @@ import * as z from "zod"
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -73,7 +72,6 @@ const EventDetailsTab = ({
         <form onSubmit={form.handleSubmit(handleSubmit)}>
           <CardHeader>
             <CardTitle>Event details</CardTitle>
-            <CardDescription>Descriptions are always helpful</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormField

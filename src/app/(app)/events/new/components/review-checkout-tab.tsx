@@ -1,8 +1,9 @@
+import Link from "next/link"
+
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -18,19 +19,19 @@ import {
 } from "@/components/ui/table"
 import { EmailPreviewDialog } from "@/components/email-preview-dialog"
 import { cn } from "@/lib/utils"
-import Link from "next/link"
+
+const DEFAULT_PRICE = 5000
 
 const ReviewCheckoutTab = ({ formData }: any) => {
   return (
     <Card>
       <CardHeader>
         <CardTitle>Review and checkout</CardTitle>
-        <CardDescription>Descriptions are always helpful</CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 text-sm">
         <div className="space-y-2">
           <p className="font-semibold">Event details:</p>
-          <ul className="my-6 ml-6 list-disc text-sm">
+          <ul className="ml-6 list-disc">
             <li>
               <span className="font-semibold">Event name:&nbsp;</span>
               {formData.name ?? "-"}
@@ -41,7 +42,7 @@ const ReviewCheckoutTab = ({ formData }: any) => {
             </li>
             <li>
               <span className="font-semibold">Date:&nbsp;</span>
-              {formData.date?.toLocaleString() ?? "-"}
+              {formData.date?.toLocaleDateString() ?? "-"}
             </li>
             <li>
               <span className="font-semibold">Time:&nbsp;</span>
@@ -61,19 +62,23 @@ const ReviewCheckoutTab = ({ formData }: any) => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Description</TableHead>
-                <TableHead className="text-right">Qty</TableHead>
-                <TableHead className="text-right">Unit Price</TableHead>
-                <TableHead className="text-right">Total</TableHead>
+                <TableHead className="h-8">Description</TableHead>
+                <TableHead className="h-8 text-right">Qty</TableHead>
+                <TableHead className="h-8 text-right">Unit Price</TableHead>
+                <TableHead className="h-8 text-right">Total</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               <TableRow>
                 <TableCell>Service fee</TableCell>
-                <TableCell className="text-right">x450</TableCell>
-                <TableCell className="text-right">Rp5,000</TableCell>
+                <TableCell className="text-right">
+                  {formData.data.length.toLocaleString()}
+                </TableCell>
+                <TableCell className="text-right">
+                  Rp {DEFAULT_PRICE.toLocaleString()}
+                </TableCell>
                 <TableCell className="text-right font-semibold">
-                  Rp2,250,000
+                  Rp {(formData.data.length * DEFAULT_PRICE).toLocaleString()}
                 </TableCell>
               </TableRow>
             </TableBody>
