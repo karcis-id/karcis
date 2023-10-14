@@ -31,6 +31,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { InfoBox } from "@/components/info-box"
 
 const formSchema = z.object({
   subject: z.string().trim().min(3).max(50),
@@ -92,45 +93,22 @@ const EmailTemplateTab = ({ formData, setFormData }: any) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Message body</FormLabel>
-                  <div className="space-y-2">
-                    <div className="p-2 border border-l-4 rounded relative">
-                      <p className="text-sm font-medium leading-none">
-                        Message variables:
-                      </p>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="absolute top-2 right-2 h-6 w-6"
-                          >
-                            <InfoCircledIcon className="h-4 w-4" />
-                          </Button>
-                        </PopoverTrigger>
-                        {/* TODO: update explanation popover */}
-                        <PopoverContent
-                          side="right"
-                          align="start"
-                          className="text-sm space-y-2"
-                        >
-                          <p className="font-medium">
-                            What are message variables?
-                          </p>
-                          <p>Clear explanation here...</p>
-                        </PopoverContent>
-                      </Popover>
-                      <ul className="ml-6 list-disc [&>li]:mt-2 text-xs">
-                        {messageVariables.map((v, i) => (
-                          <li key={i}>
-                            <code className="bg-muted px-[0.2rem] py-[0.1rem] font-mono font-semibold rounded-sm border">
-                              {`{{ ${v.name} }}`}
-                            </code>
-                            {`  : ${v.desc}`}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
+                  <InfoBox
+                    infoTitle="What are message variables?"
+                    info="explanation..."
+                    title="Message variables:"
+                  >
+                    <ul className="ml-6 list-disc [&>li]:mt-2">
+                      {messageVariables.map((v, i) => (
+                        <li key={i}>
+                          <code className="bg-muted px-[0.2rem] py-[0.1rem] font-mono font-semibold rounded-sm border">
+                            {`{{ ${v.name} }}`}
+                          </code>
+                          {`  : ${v.desc}`}
+                        </li>
+                      ))}
+                    </ul>
+                  </InfoBox>
                   <FormControl>
                     <Textarea
                       required

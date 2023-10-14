@@ -32,6 +32,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { cn } from "@/lib/utils"
+import { InfoBox } from "@/components/info-box"
 
 const MAX_SIZE = 1024 * 1024 * 2000 // 2 GB
 const ACCEPTED_FILE_TYPES = ["text/csv"]
@@ -49,22 +50,19 @@ const formSchema = z.object({
     }),
 })
 
-const sampleDataHeaders = ["Name", "Email", "Phone"]
+const sampleDataHeaders = ["Name", "Email"]
 const sampleData = [
   {
     name: "John Doe",
     email: "john.doe@example.com",
-    phone: "123456789",
   },
   {
     name: "Luke Smith",
     email: "luke.smith@example.com",
-    phone: "123456789",
   },
   {
     name: "Bard Altman",
     email: "bard.altman@example.com",
-    phone: "123456789",
   },
 ]
 
@@ -73,9 +71,6 @@ const UploadSpreadsheetTab = ({ formData, setFormData }: any) => {
   // TODO: write a decent default email body template
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    values: {
-      file: formData.file ?? null,
-    },
   })
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
@@ -93,15 +88,18 @@ const UploadSpreadsheetTab = ({ formData, setFormData }: any) => {
             <CardDescription>Descriptions are always helpful</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="p-2 border border-l-4 rounded space-y-4">
-              <p className="text-sm font-medium leading-none">
-                Spreadsheet data format guidelines
-              </p>
+            <InfoBox
+              infoTitle="What should my data look like?"
+              info="description"
+              title="Spreadsheet data format guidelines"
+            >
               <Table className="border rounded text-xs">
                 <TableHeader>
                   <TableRow className="bg-muted hover:bg-muted">
                     {sampleDataHeaders.map((header, i) => (
-                      <TableHead key={i}>{header}</TableHead>
+                      <TableHead key={i} className="h-8">
+                        {header}
+                      </TableHead>
                     ))}
                   </TableRow>
                 </TableHeader>
@@ -110,12 +108,11 @@ const UploadSpreadsheetTab = ({ formData, setFormData }: any) => {
                     <TableRow key={i}>
                       <TableCell>{row.name}</TableCell>
                       <TableCell>{row.email}</TableCell>
-                      <TableCell>{row.phone}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
-            </div>
+            </InfoBox>
             <FormField
               control={form.control}
               name="file"
