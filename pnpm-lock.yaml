@@ -65,6 +65,9 @@ dependencies:
   next-themes:
     specifier: ^0.2.1
     version: 0.2.1(next@13.5.4)(react-dom@18.2.0)(react@18.2.0)
+  papaparse:
+    specifier: ^5.4.1
+    version: 5.4.1
   react:
     specifier: ^18
     version: 18.2.0
@@ -88,6 +91,9 @@ devDependencies:
   "@types/node":
     specifier: ^20
     version: 20.8.3
+  "@types/papaparse":
+    specifier: ^5.3.9
+    version: 5.3.9
   "@types/react":
     specifier: ^18
     version: 18.2.25
@@ -1504,6 +1510,15 @@ packages:
       {
         integrity: sha512-jxiZQFpb+NlH5kjW49vXxvxTjeeqlbsnTAdBTKpzEdPs9itay7MscYXz3Fo9VYFEsfQ6LJFitHad3faerLAjCw==,
       }
+
+  /@types/papaparse@5.3.9:
+    resolution:
+      {
+        integrity: sha512-sZcrKD63qA4/6GyBcVvX6AIp0AkpfyYk00CUQHMBvb4+OVXTZWyXUvidUZaai1wyKUVyJoxO7mgREam/pMRrDw==,
+      }
+    dependencies:
+      "@types/node": 20.8.3
+    dev: true
 
   /@types/phoenix@1.6.2:
     resolution:
@@ -4399,6 +4414,13 @@ packages:
     dependencies:
       p-limit: 3.1.0
     dev: true
+
+  /papaparse@5.4.1:
+    resolution:
+      {
+        integrity: sha512-HipMsgJkZu8br23pW15uvo6sib6wne/4woLZPlFf3rpDyMe9ywEXUsuD7+6K9PRkJlVT51j/sCOYDKGGS3ZJrw==,
+      }
+    dev: false
 
   /parent-module@1.0.1:
     resolution:
