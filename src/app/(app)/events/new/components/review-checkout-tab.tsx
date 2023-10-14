@@ -53,8 +53,10 @@ const ReviewCheckoutTab = ({ formData }: any) => {
         <Separator />
         <div className="space-y-2">
           <p className="font-semibold">Email template:</p>
-          {/* TODO: generate email preview dynamically */}
-          <EmailPreviewDialog />
+          <EmailPreviewDialog
+            subject={formData.subject}
+            emailBody={formData.emailBody}
+          />
         </div>
         <Separator />
         <div className="space-y-2">

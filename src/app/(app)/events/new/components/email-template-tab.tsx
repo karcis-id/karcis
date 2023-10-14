@@ -113,7 +113,7 @@ const EmailTemplateTab = ({ formData, setFormData }: any) => {
                 </FormItem>
               )}
             />
-            <EmailPreviewDialog />
+            <EmailPreviewDialog {...form.getValues()} />
           </CardContent>
           <CardFooter className="gap-4">
             <Link
