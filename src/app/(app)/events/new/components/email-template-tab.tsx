@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { InfoCircledIcon } from "@radix-ui/react-icons"
 import * as z from "zod"
 
 import {
@@ -12,11 +11,6 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button, buttonVariants } from "@/components/ui/button"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
 import { Textarea } from "@/components/ui/textarea"
 import { EmailPreviewDialog } from "@/components/email-preview-dialog"
 import { cn } from "@/lib/utils"

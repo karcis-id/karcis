@@ -15,7 +15,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -31,8 +30,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { cn } from "@/lib/utils"
+import { cn, isValidCsv, parseCsv } from "@/lib/utils"
 import { InfoBox } from "@/components/info-box"
+import { useState } from "react"
 
 const MAX_SIZE = 1024 * 1024 * 2000 // 2 GB
 const ACCEPTED_FILE_TYPES = ["text/csv"]
@@ -66,16 +66,36 @@ const sampleData = [
   },
 ]
 
-const UploadSpreadsheetTab = ({ formData, setFormData }: any) => {
+const UploadSpreadsheetTab = ({ setFormData }: any) => {
   const router = useRouter()
   // TODO: write a decent default email body template
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   })
 
-  const handleSubmit = (values: z.infer<typeof formSchema>) => {
+  const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     // @ts-ignore
-    setFormData((prev) => ({ ...prev, ...values }))
+    const {
+      data,
+      errors,
+      meta: { fields },
+    } = await parseCsv(values.file)
+
+    if (errors.length > 0) {
+      const e = errors[0]
+      const message = `Error${e.row ? " on line " + e.row : ""}: ${e.message}`
+      form.setError("file", { type: "manual", message })
+      return
+    }
+
+    const checked = isValidCsv(data, fields)
+    if (!checked.valid) {
+      form.setError("file", { type: "manual", message: checked.message })
+      return
+    }
+
+    // @ts-ignore
+    setFormData((prev) => ({ ...prev, data }))
     router.push(`/events/new?stage=4`)
   }
 
@@ -131,8 +151,6 @@ const UploadSpreadsheetTab = ({ formData, setFormData }: any) => {
                       }
                     />
                   </FormControl>
-                  {/* TODO: dynamically render this with row count of uploaded file */}
-                  <FormDescription>Total participants: 450</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
