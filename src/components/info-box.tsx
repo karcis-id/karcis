@@ -32,12 +32,14 @@ export const InfoBox = ({ infoTitle, info, title, children }: infoBoxProps) => {
         </PopoverTrigger>
         {/* TODO: update explanation popover */}
         <PopoverContent
-          side="right"
+          side="bottom"
           align="start"
-          className="text-sm space-y-2"
+          className="text-sm space-y-2 w-96"
         >
           <p className="font-medium">{infoTitle}</p>
-          <p>{info}</p>
+          {info.split("\n").map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
         </PopoverContent>
       </Popover>
     </div>
