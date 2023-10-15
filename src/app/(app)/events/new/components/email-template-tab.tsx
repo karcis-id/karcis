@@ -25,16 +25,16 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { InfoBox } from "@/components/info-box"
+import {
+  DEFAULT_EMAIL_TEMPLATE,
+  EMAIL_MESSAGE_VARIABLES,
+  EMAIL_MESSAGE_VARIABLE_EXPLANATION,
+} from "./constants"
 
 const formSchema = z.object({
   subject: z.string().trim().min(3).max(50),
   emailBody: z.string().trim().min(3).max(2000),
 })
-
-const messageVariables = [
-  { name: "email", desc: "The participant's email address" },
-  { name: "name", desc: "The participant's name" },
-]
 
 // TODO: make types for these props for all of the form step components
 const EmailTemplateTab = ({ formData, setFormData }: any) => {
@@ -44,7 +44,7 @@ const EmailTemplateTab = ({ formData, setFormData }: any) => {
     resolver: zodResolver(formSchema),
     values: {
       subject: formData.subject ?? "",
-      emailBody: formData.emailBody ?? "",
+      emailBody: formData.emailBody ?? DEFAULT_EMAIL_TEMPLATE,
     },
   })
 
@@ -86,12 +86,12 @@ const EmailTemplateTab = ({ formData, setFormData }: any) => {
                 <FormItem>
                   <FormLabel>Message body</FormLabel>
                   <InfoBox
-                    infoTitle="What are message variables?"
-                    info="explanation..."
                     title="Message variables:"
+                    infoTitle="What are message variables?"
+                    info={EMAIL_MESSAGE_VARIABLE_EXPLANATION}
                   >
                     <ul className="ml-6 list-disc [&>li]:mt-2">
-                      {messageVariables.map((v, i) => (
+                      {EMAIL_MESSAGE_VARIABLES.map((v, i) => (
                         <li key={i}>
                           <code className="bg-muted px-[0.2rem] py-[0.1rem] font-mono font-semibold rounded-sm border">
                             {`{{ ${v.name} }}`}

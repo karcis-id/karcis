@@ -14,6 +14,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -31,38 +32,25 @@ import {
 } from "@/components/ui/table"
 import { cn, isValidCsv, parseCsv } from "@/lib/utils"
 import { InfoBox } from "@/components/info-box"
-
-const MAX_SIZE = 1024 * 1024 * 2000 // 2 GB
-const ACCEPTED_FILE_TYPES = ["text/csv"]
+import {
+  DATA_FORMAT_EXPLANATION,
+  SAMPLE_CSV_DATA,
+  MAX_FILE_SIZE,
+  ACCEPTED_FILE_TYPES,
+} from "./constants"
 
 // TODO: csv file validation (along with contents)
 const formSchema = z.object({
   file: z
     .any()
     .refine((file) => file?.size > 0, { message: "File cannot be empty" })
-    .refine((file) => file?.size < MAX_SIZE, {
+    .refine((file) => file?.size < MAX_FILE_SIZE, {
       message: "Max file size is 2 GB",
     })
     .refine((file) => ACCEPTED_FILE_TYPES.includes(file?.type), {
       message: "Only *.csv files are accepted",
     }),
 })
-
-const sampleDataHeaders = ["Name", "Email"]
-const sampleData = [
-  {
-    name: "John Doe",
-    email: "john.doe@example.com",
-  },
-  {
-    name: "Luke Smith",
-    email: "luke.smith@example.com",
-  },
-  {
-    name: "Bard Altman",
-    email: "bard.altman@example.com",
-  },
-]
 
 const UploadSpreadsheetTab = ({ setFormData }: any) => {
   const router = useRouter()
@@ -106,14 +94,14 @@ const UploadSpreadsheetTab = ({ setFormData }: any) => {
           </CardHeader>
           <CardContent className="space-y-4">
             <InfoBox
-              infoTitle="What should my data look like?"
-              info="description"
               title="Spreadsheet data format guidelines"
+              infoTitle="What should my data look like?"
+              info={DATA_FORMAT_EXPLANATION}
             >
               <Table className="border rounded text-xs">
                 <TableHeader>
                   <TableRow className="bg-muted hover:bg-muted">
-                    {sampleDataHeaders.map((header, i) => (
+                    {SAMPLE_CSV_DATA.headers.map((header, i) => (
                       <TableHead key={i} className="h-8">
                         {header}
                       </TableHead>
@@ -121,7 +109,7 @@ const UploadSpreadsheetTab = ({ setFormData }: any) => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {sampleData.map((row, i) => (
+                  {SAMPLE_CSV_DATA.data.map((row, i) => (
                     <TableRow key={i}>
                       <TableCell>{row.name}</TableCell>
                       <TableCell>{row.email}</TableCell>
@@ -148,6 +136,7 @@ const UploadSpreadsheetTab = ({ setFormData }: any) => {
                       }
                     />
                   </FormControl>
+                  <FormDescription>Only *.csv files accepted</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
