@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button, buttonVariants } from "@/components/ui/button"
-import { cn, formatSlug } from "@/lib/utils"
+import { cn, formatDatetime, formatSlug } from "@/lib/utils"
 import { Database } from "@/lib/types/supabase"
 
 // TODO: make a script to autogenerate friendlier types? e.g. Event
@@ -21,17 +21,6 @@ interface EventCardProps {
 }
 
 const hasEventPast = (dt: string) => new Date(dt) < new Date()
-
-const formatDatetime = (dt: string) =>
-  new Date(dt).toLocaleString("en-uk", {
-    weekday: "short", // short weekday name
-    day: "2-digit", // day of the month (leading zero if single digit)
-    month: "short", // abbreviated month name
-    year: "numeric", // 4-digit year
-    hour: "2-digit", // hours (24-hour format, leading zero if single digit)
-    minute: "2-digit", // minutes (leading zero if single digit)
-    hour12: false, // use 24-hour format
-  })
 
 export const EventCard = ({ event }: EventCardProps) => {
   if (!event) return null

@@ -15,6 +15,25 @@ export const formatSlug = (eventId: number, eventName: string) => {
   return `e${eventId}-${safeName}`
 }
 
+export const formatDatetime = (datetime: string) =>
+  new Date(datetime).toLocaleString("en-uk", {
+    weekday: "short", // short weekday name
+    day: "2-digit", // day of the month (leading zero if single digit)
+    month: "short", // abbreviated month name
+    year: "numeric", // 4-digit year
+    hour: "2-digit", // hours (24-hour format, leading zero if single digit)
+    minute: "2-digit", // minutes (leading zero if single digit)
+    hour12: false, // use 24-hour format
+  })
+
+export const formatDate = (date: string) =>
+  new Date(date).toLocaleString("en-uk", {
+    weekday: "short",
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  })
+
 export const parseCsv = (file: File) => {
   return new Promise((resolve) => {
     Papa.parse(file, {

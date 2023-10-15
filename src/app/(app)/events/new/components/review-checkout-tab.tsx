@@ -18,7 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { EmailPreviewDialog } from "@/components/email-preview-dialog"
-import { cn } from "@/lib/utils"
+import { cn, formatDate } from "@/lib/utils"
 
 const DEFAULT_PRICE = 5000
 
@@ -42,11 +42,16 @@ const ReviewCheckoutTab = ({ formData }: any) => {
             </li>
             <li>
               <span className="font-semibold">Date:&nbsp;</span>
-              {formData.date?.toLocaleDateString() ?? "-"}
+              {/* TODO: use the same format as event card */}
+              {formData.date ? formatDate(formData.date) : "-"}
             </li>
             <li>
               <span className="font-semibold">Time:&nbsp;</span>
               {formData.time ?? "-"}
+            </li>
+            <li>
+              <span className="font-semibold">Total participants:&nbsp;</span>
+              {formData.data.length ?? "-"}
             </li>
           </ul>
         </div>
