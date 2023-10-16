@@ -1,3 +1,7 @@
 {
-  "semi": false
+  "semi": false,
+  "printWidth": 100,
+  "importOrder": ["^@/(.*)$", "^[./]"],
+  "importOrderSeparation": true,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"]
 }
