@@ -30,7 +30,6 @@ export const InfoBox = ({ infoTitle, info, title, children }: infoBoxProps) => {
             <InfoCircledIcon className="h-4 w-4" />
           </Button>
         </PopoverTrigger>
-        {/* TODO: update explanation popover */}
         <PopoverContent
           side="bottom"
           align="start"

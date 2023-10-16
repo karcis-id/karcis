@@ -37,9 +37,10 @@ import {
   SAMPLE_CSV_DATA,
   MAX_FILE_SIZE,
   ACCEPTED_FILE_TYPES,
-} from "./constants"
+} from "../constants"
+import { Dispatch, SetStateAction } from "react"
+import { EventFormData } from "../types"
 
-// TODO: csv file validation (along with contents)
 const formSchema = z.object({
   file: z
     .any()
@@ -52,7 +53,11 @@ const formSchema = z.object({
     }),
 })
 
-const UploadSpreadsheetTab = ({ setFormData }: any) => {
+interface UploadSpreadsheetTabProps {
+  setFormData: Dispatch<SetStateAction<EventFormData>>
+}
+
+const UploadSpreadsheetTab = ({ setFormData }: UploadSpreadsheetTabProps) => {
   const router = useRouter()
   // TODO: write a decent default email body template
   const form = useForm<z.infer<typeof formSchema>>({
@@ -60,7 +65,6 @@ const UploadSpreadsheetTab = ({ setFormData }: any) => {
   })
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    // @ts-ignore
     const {
       data,
       errors,
@@ -80,7 +84,6 @@ const UploadSpreadsheetTab = ({ setFormData }: any) => {
       return
     }
 
-    // @ts-ignore
     setFormData((prev) => ({ ...prev, data }))
     router.push(`/events/new?stage=4`)
   }

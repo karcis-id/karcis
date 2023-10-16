@@ -1,5 +1,6 @@
 import Link from "next/link"
 import * as z from "zod"
+import { Dispatch, SetStateAction } from "react"
 
 import {
   Card,
@@ -29,15 +30,21 @@ import {
   DEFAULT_EMAIL_TEMPLATE,
   EMAIL_MESSAGE_VARIABLES,
   EMAIL_MESSAGE_VARIABLE_EXPLANATION,
-} from "./constants"
+} from "../constants"
+import { EventFormData } from "../types"
 
 const formSchema = z.object({
   subject: z.string().trim().min(3).max(50),
   emailBody: z.string().trim().min(3).max(2000),
 })
 
-// TODO: make types for these props for all of the form step components
-const EmailTemplateTab = ({ formData, setFormData }: any) => {
+interface EmailTemplateTabProps {
+  formData: EventFormData
+  setFormData: Dispatch<SetStateAction<EventFormData>>
+}
+
+// TODO: support markdown for email template
+const EmailTemplateTab = ({ formData, setFormData }: EmailTemplateTabProps) => {
   const router = useRouter()
   // TODO: write a decent default email body template
   const form = useForm<z.infer<typeof formSchema>>({
@@ -49,7 +56,6 @@ const EmailTemplateTab = ({ formData, setFormData }: any) => {
   })
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    // @ts-ignore
     setFormData((prev) => ({ ...prev, ...values }))
     router.push(`/events/new?stage=3`)
   }

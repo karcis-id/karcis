@@ -11,7 +11,6 @@ interface DataTableToolbarProps<TData> {
   setData: Dispatch<SetStateAction<TData[]>>
 }
 
-// TODO: once we can change row values manually, show a toast message
 const toggleStatuses = async <TData,>(
   table: Table<TData>,
   setData: Dispatch<SetStateAction<TData[]>>,

@@ -48,7 +48,6 @@ export const DataTable = <TData, TValue>({
     },
   })
 
-  // TODO: separate table into different components
   return (
     <div className="space-y-2">
       <DataTableToolbar table={table} setData={setData} />

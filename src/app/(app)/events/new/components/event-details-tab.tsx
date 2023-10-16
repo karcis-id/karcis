@@ -21,6 +21,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { Dispatch, SetStateAction } from "react"
+import { EventFormData } from "../types"
 
 const formSchema = z.object({
   name: z
@@ -42,13 +44,12 @@ const formSchema = z.object({
     .regex(/\d\d:\d\d/),
 })
 
-const EventDetailsTab = ({
-  formData,
-  setFormData,
-}: {
-  formData: any
-  setFormData: any
-}) => {
+interface EventDetailsTabProps {
+  formData: EventFormData
+  setFormData: Dispatch<SetStateAction<EventFormData>>
+}
+
+const EventDetailsTab = ({ formData, setFormData }: EventDetailsTabProps) => {
   const router = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -61,7 +62,6 @@ const EventDetailsTab = ({
   })
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    // @ts-ignore
     setFormData((prev) => ({ ...prev, ...values }))
     router.push(`/events/new?stage=2`)
   }

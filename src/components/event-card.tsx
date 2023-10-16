@@ -74,7 +74,6 @@ export const EventCard = ({ event }: EventCardProps) => {
         </ul>
       </CardContent>
       <CardFooter>
-        {/* TODO: create a format slug function, e.g. formatSlug(event) */}
         {event.is_verified ? (
           <Link
             href={`/events/${formatSlug(event.event_id, event.name)}/dashboard`}

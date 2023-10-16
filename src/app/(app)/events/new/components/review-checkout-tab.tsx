@@ -19,10 +19,14 @@ import {
 } from "@/components/ui/table"
 import { EmailPreviewDialog } from "@/components/email-preview-dialog"
 import { cn, formatDate } from "@/lib/utils"
+import { DEFAULT_PRICE } from "../constants"
+import { EventFormData } from "../types"
 
-const DEFAULT_PRICE = 5000
+interface ReviewCheckoutTabProps {
+  formData: EventFormData
+}
 
-const ReviewCheckoutTab = ({ formData }: any) => {
+const ReviewCheckoutTab = ({ formData }: ReviewCheckoutTabProps) => {
   return (
     <Card>
       <CardHeader>
@@ -42,7 +46,6 @@ const ReviewCheckoutTab = ({ formData }: any) => {
             </li>
             <li>
               <span className="font-semibold">Date:&nbsp;</span>
-              {/* TODO: use the same format as event card */}
               {formData.date ? formatDate(formData.date) : "-"}
             </li>
             <li>

@@ -9,10 +9,20 @@ import EmailTemplateTab from "./components/email-template-tab"
 import UploadSpreadsheetTab from "./components/upload-spreadsheet-tab"
 import ReviewCheckoutTab from "./components/review-checkout-tab"
 import { useState } from "react"
+import { EventFormData } from "./types"
+import { DEFAULT_EMAIL_TEMPLATE } from "./constants"
 
 const CreateEvent: NextPage = () => {
   // TODO: sync this state with the url so that data persists if page is refreshed
-  const [formData, setFormData] = useState({})
+  const [formData, setFormData] = useState<EventFormData>({
+    name: "",
+    location: "",
+    date: undefined,
+    time: "",
+    subject: "",
+    emailBody: DEFAULT_EMAIL_TEMPLATE,
+    data: [],
+  })
   const router = useRouter()
   const searchParams = useSearchParams()
   const stage = searchParams.get("stage") || "1"
@@ -43,7 +53,7 @@ const CreateEvent: NextPage = () => {
           <EmailTemplateTab formData={formData} setFormData={setFormData} />
         </TabsContent>
         <TabsContent value="3">
-          <UploadSpreadsheetTab formData={formData} setFormData={setFormData} />
+          <UploadSpreadsheetTab setFormData={setFormData} />
         </TabsContent>
         <TabsContent value="4">
           <ReviewCheckoutTab formData={formData} />

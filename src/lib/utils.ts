@@ -15,7 +15,8 @@ export const formatSlug = (eventId: number, eventName: string) => {
   return `e${eventId}-${safeName}`
 }
 
-export const formatDatetime = (datetime: string) =>
+// NOTE: Date constructor can take a Date object, and it will return a deep copy
+export const formatDatetime = (datetime: string | Date) =>
   new Date(datetime).toLocaleString("en-uk", {
     weekday: "short", // short weekday name
     day: "2-digit", // day of the month (leading zero if single digit)
@@ -26,7 +27,7 @@ export const formatDatetime = (datetime: string) =>
     hour12: false, // use 24-hour format
   })
 
-export const formatDate = (date: string) =>
+export const formatDate = (date: string | Date) =>
   new Date(date).toLocaleString("en-uk", {
     weekday: "short",
     day: "2-digit",
@@ -34,7 +35,7 @@ export const formatDate = (date: string) =>
     year: "numeric",
   })
 
-export const parseCsv = (file: File) => {
+export const parseCsv: any = (file: File) => {
   return new Promise((resolve) => {
     Papa.parse(file, {
       header: true,
