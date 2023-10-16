@@ -25,6 +25,7 @@ interface ReviewCheckoutTabProps {
 const ReviewCheckoutTab = ({ formData }: ReviewCheckoutTabProps) => {
   const { toast } = useToast()
 
+  // TODO: handle success, probably with a new tab
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const res = await fetch("/api/test", {

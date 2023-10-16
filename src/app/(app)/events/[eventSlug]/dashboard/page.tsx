@@ -11,15 +11,19 @@ const getParticipants = async (eventSlug: string) => {
   const supabase = createServerComponentClient<Database>({ cookies })
   const { data: participants, error } = await supabase
     .from("participants")
-    .select("*, events(count)")
-    .eq("events.event_id", eventId)
+    .select()
+    .eq("event_id", eventId)
     .order("participant_id")
 
   if (error) {
     console.log(error)
+    return []
   }
 
-  return participants
+  // since participants are all in the same table, subtract row ids with row[0].id - 1
+  // so that the ids start from 1
+  const firstId = participants[0].participant_id - 1
+  return participants.map((p) => ({ ...p, participant_id: p.participant_id - firstId }))
 }
 
 const EventDashboard = async ({ params }: { params: { eventSlug: string } }) => {
