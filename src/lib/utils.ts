@@ -74,3 +74,44 @@ export const isValidCsv = (data: any[], headers: string[]) => {
   const message = `Error on line ${error.line} near ${error.column}: ${error.error.issues[0].message}`
   return { valid: false, message }
 }
+
+// https://postgrest.org/en/stable/references/errors.html#http-status-codes
+export const postgrestToHttpCode = (code: string) => {
+  switch (code) {
+    case "23503":
+      return 409
+    case "23505":
+      return 409
+    case "25006":
+      return 405
+    case "P0001":
+      return 400
+    case "42883":
+      return 404
+    case "42P01":
+      return 404
+    case "42501":
+      return 403
+  }
+  if (code.startsWith("54")) return 413
+  if (code.startsWith("08") || code.startsWith("53")) return 503
+  if (code.startsWith("0L") || code.startsWith("0P") || code.startsWith("28")) return 403
+  if (
+    code.startsWith("09") ||
+    code.startsWith("25") ||
+    code.startsWith("2D") ||
+    code.startsWith("38") ||
+    code.startsWith("39") ||
+    code.startsWith("3B") ||
+    code.startsWith("40") ||
+    code.startsWith("55") ||
+    code.startsWith("57") ||
+    code.startsWith("58") ||
+    code.startsWith("F0") ||
+    code.startsWith("HV") ||
+    code.startsWith("P0") ||
+    code.startsWith("XX")
+  )
+    return 500
+  return 400
+}

@@ -12,6 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { useToast } from "@/components/ui/use-toast"
 import { EventFormData } from "@/lib/types/events"
 import { cn, formatDate } from "@/lib/utils"
 
@@ -22,6 +23,33 @@ interface ReviewCheckoutTabProps {
 }
 
 const ReviewCheckoutTab = ({ formData }: ReviewCheckoutTabProps) => {
+  const { toast } = useToast()
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const res = await fetch("/api/test", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    })
+    const json = await res.json()
+
+    if (!res.ok) {
+      console.log(res.status, json.message)
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: json.message,
+        variant: "destructive",
+      })
+      return
+    }
+
+    toast({
+      title: "Success!",
+      description: "Event successfully created",
+    })
+  }
+
   return (
     <Card>
       <CardHeader>
@@ -90,9 +118,11 @@ const ReviewCheckoutTab = ({ formData }: ReviewCheckoutTabProps) => {
         <Link href="?stage=3" className={cn(buttonVariants({ variant: "secondary" }), "w-full")}>
           Previous
         </Link>
-        <Button type="submit" className="w-full">
-          Confirm payment
-        </Button>
+        <form onSubmit={handleSubmit} className="w-full">
+          <Button type="submit" className="w-full">
+            Confirm payment
+          </Button>
+        </form>
       </CardFooter>
     </Card>
   )
