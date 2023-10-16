@@ -7,6 +7,8 @@ export interface Database {
         Row: {
           created_at: string
           creator_user_id: string
+          email_body: string
+          email_subject: string
           event_datetime: string
           event_id: number
           is_verified: boolean
@@ -15,7 +17,9 @@ export interface Database {
         }
         Insert: {
           created_at?: string
-          creator_user_id: string
+          creator_user_id?: string
+          email_body?: string
+          email_subject?: string
           event_datetime?: string
           event_id?: number
           is_verified?: boolean
@@ -25,6 +29,8 @@ export interface Database {
         Update: {
           created_at?: string
           creator_user_id?: string
+          email_body?: string
+          email_subject?: string
           event_datetime?: string
           event_id?: number
           is_verified?: boolean
@@ -110,7 +116,12 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      toggle_participants_statuses: {
+        Args: {
+          ids: number[]
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never
