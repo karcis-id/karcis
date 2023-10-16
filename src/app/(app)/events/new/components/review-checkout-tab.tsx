@@ -12,10 +12,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { EventFormData } from "@/lib/types/events"
 import { cn, formatDate } from "@/lib/utils"
 
 import { DEFAULT_PRICE } from "../constants"
-import { EventFormData } from "../types"
 
 interface ReviewCheckoutTabProps {
   formData: EventFormData

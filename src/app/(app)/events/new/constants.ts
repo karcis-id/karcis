@@ -10,6 +10,8 @@ E.g., you can start your emails with "Dear {{ name }}". When sent, \`{{ name }}\
 
 The \`{{ qrcode }}\` variable is a special variable that will be replaced with an image of the participant's unique QR code.`
 
+export const DEFAULT_EMAIL_SUBJECT = `Invitation: [Event name] @ [Date] [Time]`
+
 export const DEFAULT_EMAIL_TEMPLATE = `Dear {{name}},
 
 We're excited to welcome you to our event! Here are the essential details:

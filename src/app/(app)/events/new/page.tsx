@@ -5,13 +5,13 @@ import { useState } from "react"
 
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { EventFormData } from "@/lib/types/events"
 
 import EmailTemplateTab from "./components/email-template-tab"
 import EventDetailsTab from "./components/event-details-tab"
 import ReviewCheckoutTab from "./components/review-checkout-tab"
 import UploadSpreadsheetTab from "./components/upload-spreadsheet-tab"
-import { DEFAULT_EMAIL_TEMPLATE } from "./constants"
-import { EventFormData } from "./types"
+import { DEFAULT_EMAIL_SUBJECT, DEFAULT_EMAIL_TEMPLATE } from "./constants"
 
 const CreateEvent = () => {
   // TODO: sync this state with the url so that data persists if page is refreshed
@@ -20,7 +20,7 @@ const CreateEvent = () => {
     location: "",
     date: undefined,
     time: "",
-    subject: "",
+    subject: DEFAULT_EMAIL_SUBJECT,
     emailBody: DEFAULT_EMAIL_TEMPLATE,
     data: [],
   })

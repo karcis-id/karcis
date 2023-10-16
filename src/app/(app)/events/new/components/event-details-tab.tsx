@@ -16,8 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-
-import { EventFormData } from "../types"
+import { EventFormData } from "@/lib/types/events"
 
 const formSchema = z.object({
   name: z

@@ -19,13 +19,13 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { EventFormData } from "@/lib/types/events"
 import { cn } from "@/lib/utils"
 
 import { EMAIL_MESSAGE_VARIABLES, EMAIL_MESSAGE_VARIABLE_EXPLANATION } from "../constants"
-import { EventFormData } from "../types"
 
 const formSchema = z.object({
-  subject: z.string().trim().min(3).max(50),
+  subject: z.string().trim().min(3).max(100),
   emailBody: z.string().trim().min(3).max(2000),
 })
 

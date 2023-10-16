@@ -26,6 +26,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { EventFormData } from "@/lib/types/events"
 import { cn, isValidCsv, parseCsv } from "@/lib/utils"
 
 import {
@@ -34,7 +35,6 @@ import {
   MAX_FILE_SIZE,
   ACCEPTED_FILE_TYPES,
 } from "../constants"
-import { EventFormData } from "../types"
 
 const formSchema = z.object({
   file: z
