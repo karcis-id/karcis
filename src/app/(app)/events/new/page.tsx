@@ -1,18 +1,19 @@
 "use client"
-import { NextPage } from "next"
+
 import { useRouter, useSearchParams } from "next/navigation"
+import { useState } from "react"
 
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import EventDetailsTab from "./components/event-details-tab"
-import EmailTemplateTab from "./components/email-template-tab"
-import UploadSpreadsheetTab from "./components/upload-spreadsheet-tab"
-import ReviewCheckoutTab from "./components/review-checkout-tab"
-import { useState } from "react"
-import { EventFormData } from "./types"
-import { DEFAULT_EMAIL_TEMPLATE } from "./constants"
 
-const CreateEvent: NextPage = () => {
+import EmailTemplateTab from "./components/email-template-tab"
+import EventDetailsTab from "./components/event-details-tab"
+import ReviewCheckoutTab from "./components/review-checkout-tab"
+import UploadSpreadsheetTab from "./components/upload-spreadsheet-tab"
+import { DEFAULT_EMAIL_TEMPLATE } from "./constants"
+import { EventFormData } from "./types"
+
+const CreateEvent = () => {
   // TODO: sync this state with the url so that data persists if page is refreshed
   const [formData, setFormData] = useState<EventFormData>({
     name: "",
@@ -29,9 +30,7 @@ const CreateEvent: NextPage = () => {
 
   return (
     <div className="space-y-4">
-      <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-        Create event
-      </h1>
+      <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight">Create event</h1>
       <Separator />
       <Tabs
         defaultValue="1"

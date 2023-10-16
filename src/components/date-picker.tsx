@@ -1,16 +1,13 @@
 "use client"
-import { format } from "date-fns"
-import { CalendarIcon } from "@radix-ui/react-icons"
 
-import { cn } from "@/lib/utils"
+import { CalendarIcon } from "@radix-ui/react-icons"
+import { format } from "date-fns"
+
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
 import { FormControl } from "@/components/ui/form"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { cn } from "@/lib/utils"
 
 // @ts-ignore
 export const DatePicker = ({ field }) => {
@@ -25,11 +22,7 @@ export const DatePicker = ({ field }) => {
               !field.value && "text-muted-foreground",
             )}
           >
-            {field.value ? (
-              format(field.value, "PPP")
-            ) : (
-              <span>Pick a date</span>
-            )}
+            {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
           </Button>
         </FormControl>

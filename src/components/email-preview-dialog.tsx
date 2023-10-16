@@ -1,3 +1,6 @@
+import { EyeOpenIcon } from "@radix-ui/react-icons"
+
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -6,8 +9,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { EyeOpenIcon } from "@radix-ui/react-icons"
 
 interface EmailPreviewDialogProps {
   subject: string
@@ -15,10 +16,7 @@ interface EmailPreviewDialogProps {
 }
 
 // TODO: create a format body function (text -> html)
-export const EmailPreviewDialog = ({
-  subject,
-  emailBody,
-}: EmailPreviewDialogProps) => {
+export const EmailPreviewDialog = ({ subject, emailBody }: EmailPreviewDialogProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>

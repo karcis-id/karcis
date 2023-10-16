@@ -1,8 +1,8 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 import { cookies } from "next/headers"
 
-import { Separator } from "@/components/ui/separator"
 import { Participant, columns, DataTable } from "@/components/data-table"
+import { Separator } from "@/components/ui/separator"
 import { Database } from "@/lib/types/supabase"
 
 const getParticipants = async (eventSlug: string) => {
@@ -22,11 +22,7 @@ const getParticipants = async (eventSlug: string) => {
   return participants
 }
 
-const EventDashboard = async ({
-  params,
-}: {
-  params: { eventSlug: string }
-}) => {
+const EventDashboard = async ({ params }: { params: { eventSlug: string } }) => {
   const participants = await getParticipants(params.eventSlug)
   const data: Participant[] =
     participants?.map((p) => ({
@@ -38,9 +34,7 @@ const EventDashboard = async ({
 
   return (
     <div className="space-y-4">
-      <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-        Dashboard
-      </h1>
+      <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight">Dashboard</h1>
       <Separator />
       <DataTable columns={columns} data={data} />
     </div>

@@ -1,9 +1,10 @@
-import Link from "next/link"
 import { QuestionMarkCircledIcon } from "@radix-ui/react-icons"
-import { Button } from "@/components/ui/button"
-import { SidebarNav } from "@/components/sidebar-nav"
-import { Separator } from "@/components/ui/separator"
+import Link from "next/link"
+
 import { ModeToggle } from "@/components/mode-toggle"
+import { SidebarNav } from "@/components/sidebar-nav"
+import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
 
 const sidebarNavItems = [
   {
@@ -45,10 +46,7 @@ const EventLayout = ({ children }: { children: React.ReactNode }) => {
         <aside className="md:w-64">
           <SidebarNav items={sidebarNavItems} className="overflow-x-auto" />
         </aside>
-        <Separator
-          orientation="vertical"
-          className="h-[1px] w-full md:h-full md:w-[1px]"
-        />
+        <Separator orientation="vertical" className="h-[1px] w-full md:h-full md:w-[1px]" />
         <div className="w-full">{children}</div>
       </div>
     </>

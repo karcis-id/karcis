@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
 import Papa from "papaparse"
+import { twMerge } from "tailwind-merge"
 import { z } from "zod"
 
 export const cn = (...inputs: ClassValue[]) => {
@@ -52,10 +52,7 @@ export const isValidCsv = (data: any[], headers: string[]) => {
   }
 
   const [name, email] = headers
-  if (
-    headers.length !== 2 &&
-    (name.toLowerCase() !== "name" || email.toLowerCase() !== "email")
-  ) {
+  if (headers.length !== 2 && (name.toLowerCase() !== "name" || email.toLowerCase() !== "email")) {
     return { valid: false, message: "Incorrect file headers" }
   }
 
@@ -72,9 +69,7 @@ export const isValidCsv = (data: any[], headers: string[]) => {
   if (invalidRows.length === 0) return { valid: true, message: "" }
 
   // return only the first row with error even if there are multiple
-  const error = invalidRows[0][0].success
-    ? invalidRows[0][1]
-    : invalidRows[0][0]
+  const error = invalidRows[0][0].success ? invalidRows[0][1] : invalidRows[0][0]
   // @ts-ignore
   const message = `Error on line ${error.line} near ${error.column}: ${error.error.issues[0].message}`
   return { valid: false, message }

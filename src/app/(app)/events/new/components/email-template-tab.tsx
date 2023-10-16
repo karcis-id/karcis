@@ -1,22 +1,14 @@
-import Link from "next/link"
-import * as z from "zod"
-import { Dispatch, SetStateAction } from "react"
-
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Button, buttonVariants } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
-import { EmailPreviewDialog } from "@/components/email-preview-dialog"
-import { cn } from "@/lib/utils"
-import { useRouter } from "next/navigation"
-import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { Dispatch, SetStateAction } from "react"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+
+import { EmailPreviewDialog } from "@/components/email-preview-dialog"
+import { InfoBox } from "@/components/info-box"
+import { Button, buttonVariants } from "@/components/ui/button"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Form,
   FormControl,
@@ -25,12 +17,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { InfoBox } from "@/components/info-box"
-import {
-  DEFAULT_EMAIL_TEMPLATE,
-  EMAIL_MESSAGE_VARIABLES,
-  EMAIL_MESSAGE_VARIABLE_EXPLANATION,
-} from "../constants"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { cn } from "@/lib/utils"
+
+import { EMAIL_MESSAGE_VARIABLES, EMAIL_MESSAGE_VARIABLE_EXPLANATION } from "../constants"
 import { EventFormData } from "../types"
 
 const formSchema = z.object({
@@ -50,8 +41,8 @@ const EmailTemplateTab = ({ formData, setFormData }: EmailTemplateTabProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     values: {
-      subject: formData.subject ?? "",
-      emailBody: formData.emailBody ?? DEFAULT_EMAIL_TEMPLATE,
+      subject: formData.subject,
+      emailBody: formData.emailBody,
     },
   })
 

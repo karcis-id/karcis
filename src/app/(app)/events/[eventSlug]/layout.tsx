@@ -1,6 +1,7 @@
-import { notFound } from "next/navigation"
-import { cookies } from "next/headers"
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
+import { cookies } from "next/headers"
+import { notFound } from "next/navigation"
+
 import { Database } from "@/lib/types/supabase"
 import { formatSlug } from "@/lib/utils"
 
@@ -20,11 +21,7 @@ const isValidEvent = async (eventSlug: string) => {
     console.log(error)
   }
 
-  return (
-    event &&
-    event.is_verified &&
-    formatSlug(event.event_id, event.name) === eventSlug
-  )
+  return event && event.is_verified && formatSlug(event.event_id, event.name) === eventSlug
 }
 
 const EventLayout = async ({

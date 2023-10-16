@@ -1,11 +1,12 @@
 "use client"
+
+import { ExitIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 import { usePathname, useParams } from "next/navigation"
 
-import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
-import { ExitIcon } from "@radix-ui/react-icons"
-import { Separator } from "./ui/separator"
+import { Separator } from "@/components/ui/separator"
+import { cn } from "@/lib/utils"
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
   items: {
@@ -38,10 +39,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
 
   // TODO: change to a dropdown (select) when mobile (xs-md)
   return (
-    <nav
-      className={cn("flex gap-2 md:flex-col md:space-y-1", className)}
-      {...props}
-    >
+    <nav className={cn("flex gap-2 md:flex-col md:space-y-1", className)} {...props}>
       {eventItems.length > 0 && (
         <>
           <p className="font-semibold px-4">{params.eventSlug}</p>
@@ -83,11 +81,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
       <Separator className="hidden md:block" />
 
       <form action="/api/auth/sign-out" method="POST">
-        <Button
-          type="submit"
-          variant="link"
-          className="w-full justify-start text-destructive"
-        >
+        <Button type="submit" variant="link" className="w-full justify-start text-destructive">
           <ExitIcon className="mr-2 h-4 w-4" />
           Sign out
         </Button>

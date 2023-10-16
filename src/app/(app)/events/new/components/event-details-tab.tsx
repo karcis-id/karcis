@@ -1,18 +1,12 @@
-import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
+import { Dispatch, SetStateAction } from "react"
+import { useForm } from "react-hook-form"
 import * as z from "zod"
 
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
 import { DatePicker } from "@/components/date-picker"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Form,
   FormControl,
@@ -21,7 +15,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { Dispatch, SetStateAction } from "react"
+import { Input } from "@/components/ui/input"
+
 import { EventFormData } from "../types"
 
 const formSchema = z.object({
@@ -54,10 +49,11 @@ const EventDetailsTab = ({ formData, setFormData }: EventDetailsTabProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     values: {
-      name: formData.name ?? "",
-      location: formData.location ?? "",
-      date: formData.date ?? null,
-      time: formData.time ?? "",
+      name: formData.name,
+      location: formData.location,
+      // @ts-ignore
+      date: formData.date,
+      time: formData.time,
     },
   })
 
@@ -81,11 +77,7 @@ const EventDetailsTab = ({ formData, setFormData }: EventDetailsTabProps) => {
                 <FormItem>
                   <FormLabel>Event name</FormLabel>
                   <FormControl>
-                    <Input
-                      required
-                      placeholder="e.g., Annual conference 2023"
-                      {...field}
-                    />
+                    <Input required placeholder="e.g., Annual conference 2023" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

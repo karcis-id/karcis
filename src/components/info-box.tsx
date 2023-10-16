@@ -1,10 +1,7 @@
 import { InfoCircledIcon } from "@radix-ui/react-icons"
+
 import { Button } from "@/components/ui/button"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 
 interface infoBoxProps {
   infoTitle: string
@@ -22,19 +19,11 @@ export const InfoBox = ({ infoTitle, info, title, children }: infoBoxProps) => {
       </div>
       <Popover>
         <PopoverTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute top-1 right-1 h-6 w-6"
-          >
+          <Button variant="ghost" size="icon" className="absolute top-1 right-1 h-6 w-6">
             <InfoCircledIcon className="h-4 w-4" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent
-          side="bottom"
-          align="start"
-          className="text-sm space-y-2 w-96"
-        >
+        <PopoverContent side="bottom" align="start" className="text-sm space-y-2 w-96">
           <p className="font-medium">{infoTitle}</p>
           {info.split("\n").map((p, i) => (
             <p key={i}>{p}</p>

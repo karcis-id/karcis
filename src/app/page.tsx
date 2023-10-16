@@ -1,9 +1,8 @@
-import { NextPage } from "next"
 import Link from "next/link"
 
 import { buttonVariants } from "@/components/ui/button"
 
-const Home: NextPage = () => {
+const Home = () => {
   return (
     <>
       <p>hi world</p>

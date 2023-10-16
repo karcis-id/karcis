@@ -1,13 +1,8 @@
 import Link from "next/link"
 
+import { EmailPreviewDialog } from "@/components/email-preview-dialog"
 import { Button, buttonVariants } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import {
   Table,
@@ -17,8 +12,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { EmailPreviewDialog } from "@/components/email-preview-dialog"
 import { cn, formatDate } from "@/lib/utils"
+
 import { DEFAULT_PRICE } from "../constants"
 import { EventFormData } from "../types"
 
@@ -61,10 +56,7 @@ const ReviewCheckoutTab = ({ formData }: ReviewCheckoutTabProps) => {
         <Separator />
         <div className="space-y-2">
           <p className="font-semibold">Email template:</p>
-          <EmailPreviewDialog
-            subject={formData.subject}
-            emailBody={formData.emailBody}
-          />
+          <EmailPreviewDialog subject={formData.subject} emailBody={formData.emailBody} />
         </div>
         <Separator />
         <div className="space-y-2">
@@ -84,9 +76,7 @@ const ReviewCheckoutTab = ({ formData }: ReviewCheckoutTabProps) => {
                 <TableCell className="text-right">
                   {formData.data.length.toLocaleString()}
                 </TableCell>
-                <TableCell className="text-right">
-                  Rp {DEFAULT_PRICE.toLocaleString()}
-                </TableCell>
+                <TableCell className="text-right">Rp {DEFAULT_PRICE.toLocaleString()}</TableCell>
                 <TableCell className="text-right font-semibold">
                   Rp {(formData.data.length * DEFAULT_PRICE).toLocaleString()}
                 </TableCell>
@@ -97,10 +87,7 @@ const ReviewCheckoutTab = ({ formData }: ReviewCheckoutTabProps) => {
       </CardContent>
       {/* TODO: integrate payment gateway (stripe/xendit) */}
       <CardFooter className="gap-4">
-        <Link
-          href="?stage=3"
-          className={cn(buttonVariants({ variant: "secondary" }), "w-full")}
-        >
+        <Link href="?stage=3" className={cn(buttonVariants({ variant: "secondary" }), "w-full")}>
           Previous
         </Link>
         <Button type="submit" className="w-full">

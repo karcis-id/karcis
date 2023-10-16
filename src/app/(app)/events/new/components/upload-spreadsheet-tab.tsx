@@ -1,16 +1,13 @@
-import { useRouter } from "next/navigation"
-import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { Dispatch, SetStateAction } from "react"
+import { useForm } from "react-hook-form"
 import * as z from "zod"
 
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { InfoBox } from "@/components/info-box"
+import { Button, buttonVariants } from "@/components/ui/button"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Form,
   FormControl,
@@ -20,7 +17,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { Button, buttonVariants } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
   Table,
@@ -31,14 +27,13 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { cn, isValidCsv, parseCsv } from "@/lib/utils"
-import { InfoBox } from "@/components/info-box"
+
 import {
   DATA_FORMAT_EXPLANATION,
   SAMPLE_CSV_DATA,
   MAX_FILE_SIZE,
   ACCEPTED_FILE_TYPES,
 } from "../constants"
-import { Dispatch, SetStateAction } from "react"
 import { EventFormData } from "../types"
 
 const formSchema = z.object({
@@ -59,7 +54,6 @@ interface UploadSpreadsheetTabProps {
 
 const UploadSpreadsheetTab = ({ setFormData }: UploadSpreadsheetTabProps) => {
   const router = useRouter()
-  // TODO: write a decent default email body template
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   })
@@ -134,9 +128,7 @@ const UploadSpreadsheetTab = ({ setFormData }: UploadSpreadsheetTabProps) => {
                       type="file"
                       accept="text/csv"
                       className="hover:cursor-pointer"
-                      onChange={(e) =>
-                        onChange(e.target.files && e.target.files[0])
-                      }
+                      onChange={(e) => onChange(e.target.files && e.target.files[0])}
                     />
                   </FormControl>
                   <FormDescription>Only *.csv files accepted</FormDescription>

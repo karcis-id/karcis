@@ -1,10 +1,10 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { Table } from "@tanstack/react-table"
-
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
 import { Dispatch, SetStateAction } from "react"
-import { useToast } from "../ui/use-toast"
+
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { useToast } from "@/components/ui/use-toast"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -58,10 +58,7 @@ const toggleStatuses = async <TData,>(
   })
 }
 
-export const DataTableToolbar = <TData,>({
-  table,
-  setData,
-}: DataTableToolbarProps<TData>) => {
+export const DataTableToolbar = <TData,>({ table, setData }: DataTableToolbarProps<TData>) => {
   const { toast } = useToast()
 
   // TODO: use global filter here
@@ -70,15 +67,10 @@ export const DataTableToolbar = <TData,>({
       <Input
         placeholder="Filter string..."
         value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-        onChange={(event) =>
-          table.getColumn("email")?.setFilterValue(event.target.value)
-        }
+        onChange={(event) => table.getColumn("email")?.setFilterValue(event.target.value)}
         className="max-w-sm"
       />
-      <Button
-        variant="outline"
-        onClick={async () => await toggleStatuses(table, setData, toast)}
-      >
+      <Button variant="outline" onClick={async () => await toggleStatuses(table, setData, toast)}>
         Toggle status
       </Button>
     </div>

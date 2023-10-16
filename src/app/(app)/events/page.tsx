@@ -1,11 +1,11 @@
-import Link from "next/link"
-import { cookies } from "next/headers"
 import { PlusCircledIcon } from "@radix-ui/react-icons"
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
+import { cookies } from "next/headers"
+import Link from "next/link"
 
+import { EventCard } from "@/components/event-card"
 import { buttonVariants } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
-import { EventCard } from "@/components/event-card"
 import { Database } from "@/lib/types/supabase"
 
 const getEvents = async () => {
@@ -30,9 +30,7 @@ const Events = async () => {
   return (
     <div className="space-y-4">
       <div className="flex items-start justify-between">
-        <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-          Your events
-        </h1>
+        <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight">Your events</h1>
         <Link href="/events/new" className={buttonVariants()}>
           <PlusCircledIcon className="mr-2 h-4 w-4" /> Create event
         </Link>

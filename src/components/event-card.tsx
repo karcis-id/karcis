@@ -1,17 +1,11 @@
 import { CalendarIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button, buttonVariants } from "@/components/ui/button"
-import { cn, formatDatetime, formatSlug } from "@/lib/utils"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Database } from "@/lib/types/supabase"
+import { cn, formatDatetime, formatSlug } from "@/lib/utils"
 
 // TODO: make a script to autogenerate friendlier types? e.g. Event
 // https://github.com/orgs/supabase/discussions/13364
