@@ -30,7 +30,7 @@ const ReviewCheckoutTab = ({ formData }: ReviewCheckoutTabProps) => {
   // TODO: handle success, probably with a new tab
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const res = await fetch("/api/test", {
+    const res = await fetch("/api/events/new", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
