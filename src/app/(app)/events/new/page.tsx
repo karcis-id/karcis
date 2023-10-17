@@ -9,6 +9,7 @@ import { EventFormData } from "@/lib/types/events"
 
 import EmailTemplateTab from "./components/email-template-tab"
 import EventDetailsTab from "./components/event-details-tab"
+import PostCheckoutTab from "./components/post-checkout"
 import ReviewCheckoutTab from "./components/review-checkout-tab"
 import UploadSpreadsheetTab from "./components/upload-spreadsheet-tab"
 import { DEFAULT_EMAIL_SUBJECT, DEFAULT_EMAIL_TEMPLATE } from "./constants"
@@ -38,8 +39,8 @@ const CreateEvent = () => {
         onValueChange={(stage) => router.push(`/events/new?stage=${stage}`)}
         className="w-full md:max-w-lg space-y-4"
       >
-        <TabsList className="w-full grid grid-cols-4">
-          {[1, 2, 3, 4].map((i) => (
+        <TabsList className="w-full grid grid-cols-5">
+          {[1, 2, 3, 4, 5].map((i) => (
             <TabsTrigger disabled key={i} value={i.toString()}>
               Step {i}
             </TabsTrigger>
@@ -56,6 +57,9 @@ const CreateEvent = () => {
         </TabsContent>
         <TabsContent value="4">
           <ReviewCheckoutTab formData={formData} />
+        </TabsContent>
+        <TabsContent value="5">
+          <PostCheckoutTab />
         </TabsContent>
       </Tabs>
     </div>

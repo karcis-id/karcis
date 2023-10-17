@@ -48,7 +48,7 @@ const EmailTemplateTab = ({ formData, setFormData }: EmailTemplateTabProps) => {
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
     setFormData((prev) => ({ ...prev, ...values }))
-    router.push(`/events/new?stage=3`)
+    router.push("/events/new?stage=3")
   }
 
   return (

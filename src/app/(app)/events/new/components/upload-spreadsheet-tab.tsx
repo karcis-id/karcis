@@ -79,7 +79,7 @@ const UploadSpreadsheetTab = ({ setFormData }: UploadSpreadsheetTabProps) => {
     }
 
     setFormData((prev) => ({ ...prev, data }))
-    router.push(`/events/new?stage=4`)
+    router.push("/events/new?stage=4")
   }
 
   return (

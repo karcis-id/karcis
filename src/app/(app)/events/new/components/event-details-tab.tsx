@@ -58,7 +58,7 @@ const EventDetailsTab = ({ formData, setFormData }: EventDetailsTabProps) => {
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
     setFormData((prev) => ({ ...prev, ...values }))
-    router.push(`/events/new?stage=2`)
+    router.push("/events/new?stage=2")
   }
 
   return (

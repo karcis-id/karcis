@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 import { EmailPreviewDialog } from "@/components/email-preview-dialog"
 import { Button, buttonVariants } from "@/components/ui/button"
@@ -23,6 +24,7 @@ interface ReviewCheckoutTabProps {
 }
 
 const ReviewCheckoutTab = ({ formData }: ReviewCheckoutTabProps) => {
+  const router = useRouter()
   const { toast } = useToast()
 
   // TODO: handle success, probably with a new tab
@@ -49,6 +51,7 @@ const ReviewCheckoutTab = ({ formData }: ReviewCheckoutTabProps) => {
       title: "Success!",
       description: "Event successfully created",
     })
+    router.push("/events/new?stage=5")
   }
 
   return (
