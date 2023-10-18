@@ -23,7 +23,7 @@ export const middleware = async (req: NextRequest) => {
     return res
   }
 
-  if (!user && pathname.startsWith("/events")) {
+  if (!user && (pathname.startsWith("/events") || pathname.startsWith("/api/events"))) {
     return NextResponse.redirect(new URL("/sign-in", req.url))
   }
 
@@ -35,5 +35,5 @@ export const middleware = async (req: NextRequest) => {
 }
 
 export const config = {
-  matcher: ["/sign-in", "/events", "/events/:path*"],
+  matcher: ["/sign-in", "/events", "/events/:path*", "/api/events/:path*"],
 }
