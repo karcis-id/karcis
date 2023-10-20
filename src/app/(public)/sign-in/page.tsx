@@ -26,7 +26,7 @@ const formSchema = z.object({
     .string()
     .trim()
     .min(12, { message: "Must be 12 or more characters long" })
-    .max(100, { message: "Must be 100 or fewer characters long" }),
+    .max(72, { message: "Must be 72 or fewer characters long" }),
 })
 
 const SignIn = () => {
