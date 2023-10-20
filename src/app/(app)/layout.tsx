@@ -25,11 +25,8 @@ const EventLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <header className="border-b w-full">
-        <div className="container flex h-14 items-center justify-between">
-          <Link
-            href="/"
-            className="block text-center scroll-m-20 text-xl font-semibold tracking-tight"
-          >
+        <div className="p-4 sm:container flex h-14 items-center justify-between">
+          <Link href="/" className="block scroll-m-20 text-xl font-semibold tracking-tight">
             Karcis
           </Link>
           <div className="flex items-center gap-4">
@@ -42,7 +39,7 @@ const EventLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
       </header>
-      <div className="container flex flex-col md:flex-row gap-4 py-4 h-[calc(100%_-_4.5rem)]">
+      <div className="p-4 sm:container flex flex-col md:flex-row gap-4 py-4 h-[calc(100%_-_4.5rem)]">
         <aside className="md:w-64">
           <SidebarNav items={sidebarNavItems} />
         </aside>

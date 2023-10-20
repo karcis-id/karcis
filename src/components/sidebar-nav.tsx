@@ -6,9 +6,6 @@ import { usePathname, useParams, useRouter } from "next/navigation"
 import { useState } from "react"
 
 import { Button, buttonVariants } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { cn } from "@/lib/utils"
-
 import {
   Select,
   SelectContent,
@@ -18,7 +15,9 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "./ui/select"
+} from "@/components/ui/select"
+import { Separator } from "@/components/ui/separator"
+import { cn } from "@/lib/utils"
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
   items: {
