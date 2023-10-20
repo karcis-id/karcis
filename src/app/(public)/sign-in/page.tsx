@@ -1,32 +1,56 @@
 "use client"
 
+import { zodResolver } from "@hookform/resolvers/zod"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import Link from "next/link"
-import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { useToast } from "@/components/ui/use-toast"
+
+const formSchema = z.object({
+  email: z.string().trim().email(),
+  password: z
+    .string()
+    .trim()
+    .min(12, { message: "Must be 12 or more characters long" })
+    .max(100, { message: "Must be 100 or fewer characters long" }),
+})
 
 const SignIn = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("a")
-
+  const router = useRouter()
+  const { toast } = useToast()
   const supabase = createClientComponentClient()
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+  })
 
-  // TODO: update to signInWithOTP
-  // TODO: add redirect to /events after auth
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
+  // TODO: update to signInWithOTP (?)
+  const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+    const { email, password } = values
+    const { error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) {
-      // TODO: handle error state here
       console.log(error)
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: error.message,
+        variant: "destructive",
+      })
+      return
     }
+    router.push("/events")
   }
 
   return (
@@ -42,26 +66,51 @@ const SignIn = () => {
           Welcome back
         </h1>
         <Card className="max-w-md mx-auto">
-          <form onSubmit={handleSubmit}>
-            <CardHeader>
-              <CardTitle>Sign in with email</CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-col gap-2">
-              <Label htmlFor="email">Email address</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="john.doe@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </CardContent>
-            <CardFooter>
-              <Button type="submit" className="w-full">
-                Sign in
-              </Button>
-            </CardFooter>
-          </form>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleSubmit)}>
+              <CardHeader>
+                <CardTitle>Sign in with email</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email address</FormLabel>
+                      <FormControl>
+                        <Input
+                          required
+                          type="email"
+                          placeholder="john.doe@example.com"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input required type="password" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+              <CardFooter>
+                <Button type="submit" className="w-full">
+                  Sign in
+                </Button>
+              </CardFooter>
+            </form>
+          </Form>
         </Card>
         <p className="text-center text-sm">
           {"Don't have an account? "}

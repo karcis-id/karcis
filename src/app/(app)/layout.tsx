@@ -15,11 +15,10 @@ const sidebarNavItems = [
     title: "Create event",
     href: "/events/new",
   },
-  // NOTE: Enable once core functionalities are finished
-  // {
-  //   title: "Account",
-  //   href: "/account",
-  // },
+  {
+    title: "Account",
+    href: "/account",
+  },
 ]
 
 const EventLayout = ({ children }: { children: React.ReactNode }) => {
