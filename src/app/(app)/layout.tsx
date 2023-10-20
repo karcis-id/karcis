@@ -44,9 +44,9 @@ const EventLayout = ({ children }: { children: React.ReactNode }) => {
       </header>
       <div className="container flex flex-col md:flex-row gap-4 py-4 h-[calc(100%_-_4.5rem)]">
         <aside className="md:w-64">
-          <SidebarNav items={sidebarNavItems} className="overflow-x-auto" />
+          <SidebarNav items={sidebarNavItems} />
         </aside>
-        <Separator orientation="vertical" className="h-[1px] w-full md:h-full md:w-[1px]" />
+        <Separator orientation="vertical" className="hidden md:block md:h-full md:w-[1px]" />
         <div className="w-full">{children}</div>
       </div>
     </>
