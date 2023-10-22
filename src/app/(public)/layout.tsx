@@ -1,5 +1,6 @@
 import Link from "next/link"
 
+import { ModeToggle } from "@/components/mode-toggle"
 import { buttonVariants } from "@/components/ui/button"
 
 const navItems = [
@@ -22,10 +23,10 @@ const PublicLayout = ({ children }: { children: React.ReactNode }) => {
     <>
       <header className="border-b w-full">
         <div className="p-4 sm:container flex h-14 items-center justify-between">
-          <Link href="/" className="block scroll-m-20 text-xl font-semibold tracking-tight w-52">
+          <Link href="/" className="block scroll-m-20 text-xl font-semibold tracking-tight sm:w-52">
             Karcis
           </Link>
-          <nav className="space-x-2">
+          <nav className="hidden md:block space-x-2">
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -46,7 +47,17 @@ const PublicLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
       </header>
-      <div className="p-4 sm:container">{children}</div>
+      <div className="p-4 sm:container w-full">{children}</div>
+      <footer className="border-t w-full text-muted-foreground text-sm">
+        <div className="p-4 sm:container flex justify-between items-center">
+          <p>&copy;Copyright holder</p>
+          <div className="flex gap-4 items-center">
+            <Link href="/privacy">Privacy policy</Link>
+            <Link href="/terms">Terms of service</Link>
+            <ModeToggle />
+          </div>
+        </div>
+      </footer>
     </>
   )
 }
