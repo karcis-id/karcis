@@ -1,4 +1,5 @@
 import { QuestionMarkCircledIcon } from "@radix-ui/react-icons"
+import Image from "next/image"
 import Link from "next/link"
 
 import { ModeToggle } from "@/components/mode-toggle"
@@ -26,7 +27,11 @@ const EventLayout = ({ children }: { children: React.ReactNode }) => {
     <>
       <header className="border-b w-full">
         <div className="p-4 sm:container flex h-14 items-center justify-between">
-          <Link href="/" className="block scroll-m-20 text-xl font-semibold tracking-tight">
+          <Link
+            href="/events"
+            className="block scroll-m-20 text-xl font-semibold tracking-tight sm:w-52 flex gap-1 items-center"
+          >
+            <Image src="/logo.svg" alt="logo" width={24} height={24} />
             Karcis
           </Link>
           <div className="flex items-center gap-4">

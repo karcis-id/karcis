@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 
 import { ModeToggle } from "@/components/mode-toggle"
@@ -23,7 +24,11 @@ const PublicLayout = ({ children }: { children: React.ReactNode }) => {
     <>
       <header className="border-b w-full">
         <div className="p-4 sm:container flex h-14 items-center justify-between">
-          <Link href="/" className="block scroll-m-20 text-xl font-semibold tracking-tight sm:w-52">
+          <Link
+            href="/"
+            className="block scroll-m-20 text-xl font-semibold tracking-tight sm:w-52 flex gap-1 items-center"
+          >
+            <Image src="/logo.svg" alt="logo" width={24} height={24} />
             Karcis
           </Link>
           <nav className="hidden md:block space-x-2">
