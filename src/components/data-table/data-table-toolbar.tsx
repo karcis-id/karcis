@@ -63,7 +63,7 @@ export const DataTableToolbar = <TData,>({ table, setData }: DataTableToolbarPro
 
   // TODO: use global filter here
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between gap-2">
       <Input
         placeholder="Filter string..."
         value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}

@@ -171,50 +171,50 @@ const Home = () => {
         </div>
         <Accordion type="single" collapsible className="max-w-4xl mx-auto">
           <AccordionItem value="1">
-            <AccordionTrigger className="text-lg">
+            <AccordionTrigger className="md:text-lg text-left">
               Is Karcis suitable for small and large events?
             </AccordionTrigger>
-            <AccordionContent className="text-lg">
+            <AccordionContent className="md:text-lg text-left">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero quos officiis delectus
               animi. Ab explicabo dolor in ullam ratione, repellat debitis non! Sit distinctio,
               eveniet ea iure aut facere illo.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="2">
-            <AccordionTrigger className="text-lg">
+            <AccordionTrigger className="md:text-lg text-left">
               What kind of support and assistance do you offer to Karcis users?
             </AccordionTrigger>
-            <AccordionContent className="text-lg">
+            <AccordionContent className="md:text-lg text-left">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero quos officiis delectus
               animi. Ab explicabo dolor in ullam ratione, repellat debitis non! Sit distinctio,
               eveniet ea iure aut facere illo.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="3">
-            <AccordionTrigger className="text-lg">
+            <AccordionTrigger className="md:text-lg text-left">
               How secure is Karcis for managing my event&apos;s data?
             </AccordionTrigger>
-            <AccordionContent className="text-lg">
+            <AccordionContent className="md:text-lg text-left">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero quos officiis delectus
               animi. Ab explicabo dolor in ullam ratione, repellat debitis non! Sit distinctio,
               eveniet ea iure aut facere illo.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="4">
-            <AccordionTrigger className="text-lg">
+            <AccordionTrigger className="md:text-lg text-left">
               Can I try Karcis before committing to a subscription?
             </AccordionTrigger>
-            <AccordionContent className="text-lg">
+            <AccordionContent className="md:text-lg text-left">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero quos officiis delectus
               animi. Ab explicabo dolor in ullam ratione, repellat debitis non! Sit distinctio,
               eveniet ea iure aut facere illo.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="5">
-            <AccordionTrigger className="text-lg">
+            <AccordionTrigger className="md:text-lg text-left">
               What&apos;s included in the web dashboard and scanner feature?
             </AccordionTrigger>
-            <AccordionContent className="text-lg">
+            <AccordionContent className="md:text-lg text-left">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero quos officiis delectus
               animi. Ab explicabo dolor in ullam ratione, repellat debitis non! Sit distinctio,
               eveniet ea iure aut facere illo.
