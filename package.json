@@ -38,8 +38,8 @@
     "react": "^18",
     "react-day-picker": "^8.8.2",
     "react-dom": "^18",
-    "react-qr-reader": "3.0.0-beta-1",
     "react-hook-form": "^7.47.0",
+    "react-zxing": "^2.0.0",
     "tailwind-merge": "^1.14.0",
     "zod": "^3.22.4"
   },

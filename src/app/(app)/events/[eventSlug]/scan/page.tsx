@@ -1,33 +1,49 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { QrReader } from "react-qr-reader"
+import { useState } from "react"
+import { useZxing } from "react-zxing"
 
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogClose,
+} from "@/components/ui/dialog"
 import { Separator } from "@/components/ui/separator"
 
 const EventScan = ({ params }: { params: { eventSlug: string } }) => {
+  const [isPaused, setIsPaused] = useState(false)
   const [result, setResult] = useState("")
+  const { ref } = useZxing({
+    onDecodeResult: (result) => {
+      setIsPaused(true)
+      setResult(result.getText())
+    },
+    timeBetweenDecodingAttempts: 300,
+    paused: isPaused,
+  })
 
   return (
     <div className="space-y-4">
       <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight">Scan QR code</h1>
       <Separator />
-      <div>
-        content goes here
-        {result}
-        <QrReader
-          onResult={(result, error) => {
-            if (!!result) {
-              setResult(result.getText())
-            }
-
-            if (!!error) {
-              console.info(error)
-            }
-          }}
-          style={{ width: "100%" }}
-        />
-      </div>
+      <video ref={ref} />
+      <Dialog open={isPaused} onOpenChange={setIsPaused}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Scan success</DialogTitle>
+          </DialogHeader>
+          scanned: <a href={result}>{result}</a>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button>Ok</Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
