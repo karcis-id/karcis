@@ -21,11 +21,13 @@ const EventScan = ({ params }: { params: { eventSlug: string } }) => {
     onDecodeResult: (result) => {
       setIsPaused(true)
       setResult(result.getText())
+      // TODO: qr code handling here
     },
     timeBetweenDecodingAttempts: 300,
     paused: isPaused,
   })
 
+  // TODO: handle empty state (can't access camera)
   return (
     <div className="space-y-4">
       <h1 className="scroll-m-20 text-2xl font-semibold tracking-tight">Scan QR code</h1>

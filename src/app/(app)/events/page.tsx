@@ -8,6 +8,8 @@ import { buttonVariants } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Database } from "@/lib/types/supabase"
 
+export const dynamic = "force-dynamic"
+
 const getEvents = async () => {
   const supabase = createServerComponentClient<Database>({ cookies })
   const { data: events, error } = await supabase

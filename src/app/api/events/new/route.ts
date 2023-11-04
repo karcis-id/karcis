@@ -6,6 +6,8 @@ import { EventFormData } from "@/lib/types/events"
 import { Database } from "@/lib/types/supabase"
 import { postgrestToHttpCode } from "@/lib/utils"
 
+export const dynamic = "force-dynamic"
+
 // TODO: unit tests
 const formatEventsData = (reqBody: EventFormData) => {
   const is_verified = false

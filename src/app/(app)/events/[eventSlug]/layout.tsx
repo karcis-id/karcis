@@ -5,6 +5,8 @@ import { notFound } from "next/navigation"
 import { Database } from "@/lib/types/supabase"
 import { formatSlug } from "@/lib/utils"
 
+export const dynamic = "force-dynamic"
+
 const isValidEvent = async (eventSlug: string) => {
   const eventId = parseInt(eventSlug.split("-")[0].substring(1))
   if (!eventId) return false
