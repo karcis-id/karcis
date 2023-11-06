@@ -65,6 +65,9 @@ dependencies:
   date-fns:
     specifier: ^2.30.0
     version: 2.30.0
+  jose:
+    specifier: ^5.1.0
+    version: 5.1.0
   next:
     specifier: 13.5.4
     version: 13.5.4(react-dom@18.2.0)(react@18.2.0)
@@ -4135,6 +4138,13 @@ packages:
     resolution:
       {
         integrity: sha512-IY73F228OXRl9ar3jJagh7Vnuhj/GzBunPiZP13K0lOl7Am9SoWW3kEzq3MCllJMTtZqHTiDXQvoRd4U95aU6A==,
+      }
+    dev: false
+
+  /jose@5.1.0:
+    resolution:
+      {
+        integrity: sha512-H+RVqxA6apaJ0rcQYupKYhos7uosAiF42gUcWZiwhICWMphDULFj/CRr1R0tV/JCv9DEeJaSyYYpc9luHHNT4g==,
       }
     dev: false
 

@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { useZxing } from "react-zxing"
 
+import { Participant } from "@/components/data-table"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -14,14 +15,24 @@ import {
 } from "@/components/ui/dialog"
 import { Separator } from "@/components/ui/separator"
 
-const EventScan = ({ params }: { params: { eventSlug: string } }) => {
+const decodeQr = async (qrText: string) => {
+  const res = await fetch("/api/events/scan", {
+    method: "POST",
+    body: JSON.stringify({ data: qrText }),
+  })
+  const { participant }: { participant: Participant } = await res.json()
+  return participant
+}
+
+const EventScan = () => {
+  const [participant, setParticipant] = useState<Participant>()
   const [isPaused, setIsPaused] = useState(false)
-  const [result, setResult] = useState("")
   const { ref } = useZxing({
-    onDecodeResult: (result) => {
+    onDecodeResult: async (result) => {
       setIsPaused(true)
-      setResult(result.getText())
-      // TODO: qr code handling here
+      const participant = await decodeQr(result.getText())
+      setParticipant(participant)
+      console.log(participant)
     },
     timeBetweenDecodingAttempts: 300,
     paused: isPaused,
@@ -38,7 +49,15 @@ const EventScan = ({ params }: { params: { eventSlug: string } }) => {
           <DialogHeader>
             <DialogTitle>Scan success</DialogTitle>
           </DialogHeader>
-          scanned: <a href={result}>{result}</a>
+          {participant && (
+            <>
+              <p>Participant details:</p>
+              <ul className="list-disc list-inside [&>li]:ml-4">
+                <li>Name: {participant.name}</li>
+                <li>Email: {participant.email}</li>
+              </ul>
+            </>
+          )}
           <DialogFooter>
             <DialogClose asChild>
               <Button>Ok</Button>
