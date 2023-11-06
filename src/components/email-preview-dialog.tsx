@@ -1,4 +1,5 @@
 import { EyeOpenIcon } from "@radix-ui/react-icons"
+import Markdown from "react-markdown"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -15,7 +16,6 @@ interface EmailPreviewDialogProps {
   emailBody: string
 }
 
-// TODO: create a format body function (text -> html)
 export const EmailPreviewDialog = ({ subject, emailBody }: EmailPreviewDialogProps) => {
   return (
     <Dialog>
@@ -31,9 +31,7 @@ export const EmailPreviewDialog = ({ subject, emailBody }: EmailPreviewDialogPro
           <DialogDescription>Subject heading: {subject}</DialogDescription>
         </DialogHeader>
         <div className="space-y-2 border rounded p-2 text-sm">
-          {emailBody.split("\n").map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
+          <Markdown>{emailBody}</Markdown>
         </div>
       </DialogContent>
     </Dialog>

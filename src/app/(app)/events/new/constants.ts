@@ -15,11 +15,12 @@ export const DEFAULT_EMAIL_SUBJECT = `Invitation: [Event name] @ [Date] [Time]`
 export const DEFAULT_EMAIL_TEMPLATE = `Dear {{name}},
 
 We're excited to welcome you to our event! Here are the essential details:
-- Location: [Event Location]
-- Date: [Event Date]
-- Time: [Event Time]
+- **Location**: [Event Location]
+- **Date**: [Event Date]
+- **Time**: [Event Time]
 
 Please arrive a litter early with this QR code for a smooth check-in.
+
 {{ qrcode }}
 
 Should you have any inquiries, feel free to reach out to us at [Support Email].
@@ -27,6 +28,7 @@ Should you have any inquiries, feel free to reach out to us at [Support Email].
 Looking forward to seeing you there!
 
 Best regards,
+
 [Your Name]`
 
 export const MAX_FILE_SIZE = 1024 * 1024 * 2000 // 2 GB

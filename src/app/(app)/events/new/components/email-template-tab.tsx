@@ -37,7 +37,6 @@ interface EmailTemplateTabProps {
 // TODO: support markdown for email template
 const EmailTemplateTab = ({ formData, setFormData }: EmailTemplateTabProps) => {
   const router = useRouter()
-  // TODO: write a decent default email body template
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     values: {
