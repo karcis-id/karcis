@@ -29,7 +29,7 @@ export const EventCard = ({ event }: EventCardProps) => {
               Finished
             </Badge>
           )}
-          {!event.is_verified && (
+          {!hasEventPast(event.event_datetime) && !event.is_verified && (
             <Badge variant="secondary" className="ml-2">
               Pending confirmation
             </Badge>

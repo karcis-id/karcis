@@ -37,7 +37,7 @@ const SignIn = () => {
     resolver: zodResolver(formSchema),
   })
 
-  // TODO: update to signInWithOTP (?)
+  // TODO: replace auth helpers with @supabase/ssr smh
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     const { email, password } = values
     const { error } = await supabase.auth.signInWithPassword({ email, password })
@@ -50,6 +50,7 @@ const SignIn = () => {
       })
       return
     }
+    // TODO: loading state
     router.push("/events")
   }
 

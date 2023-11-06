@@ -70,7 +70,11 @@ export const DataTableToolbar = <TData,>({ table, setData }: DataTableToolbarPro
         onChange={(event) => table.getColumn("email")?.setFilterValue(event.target.value)}
         className="max-w-sm"
       />
-      <Button variant="outline" onClick={async () => await toggleStatuses(table, setData, toast)}>
+      <Button
+        variant="outline"
+        onClick={async () => await toggleStatuses(table, setData, toast)}
+        className="whitespace-nowrap"
+      >
         Toggle status
       </Button>
     </div>
