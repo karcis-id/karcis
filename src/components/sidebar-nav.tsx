@@ -53,6 +53,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
 
   const handleValueChange = async (value: string) => {
     if (value === "/sign-out") {
+      setSelectValue(value)
       await fetch("/api/auth/sign-out", {
         method: "POST",
       })
@@ -63,7 +64,6 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
     router.push(value)
   }
 
-  // TODO: change to a dropdown (select) when mobile (xs-md)
   return (
     <>
       <nav className={"hidden md:flex gap-2 md:flex-col md:space-y-1"} {...props}>
@@ -117,6 +117,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
 
       {/* mobile navbar */}
       <nav className="md:hidden">
+        {/* BUG: select needs 2 clicks on mobile. probably an issue with radix. */}
         <Select value={selectValue} onValueChange={handleValueChange}>
           <SelectTrigger>
             <SelectValue />

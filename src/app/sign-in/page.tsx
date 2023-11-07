@@ -1,9 +1,11 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { ReloadIcon } from "@radix-ui/react-icons"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
@@ -30,6 +32,7 @@ const formSchema = z.object({
 })
 
 const SignIn = () => {
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const { toast } = useToast()
   const supabase = createClientComponentClient()
@@ -39,6 +42,7 @@ const SignIn = () => {
 
   // TODO: replace auth helpers with @supabase/ssr smh
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsLoading(true)
     const { email, password } = values
     const { error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) {
@@ -48,9 +52,9 @@ const SignIn = () => {
         description: error.message,
         variant: "destructive",
       })
+      setIsLoading(false)
       return
     }
-    // TODO: loading state
     router.push("/events")
   }
 
@@ -106,8 +110,15 @@ const SignIn = () => {
                 />
               </CardContent>
               <CardFooter>
-                <Button type="submit" className="w-full">
-                  Sign in
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? (
+                    <>
+                      <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                      Signing in...
+                    </>
+                  ) : (
+                    "Sign in"
+                  )}
                 </Button>
               </CardFooter>
             </form>
