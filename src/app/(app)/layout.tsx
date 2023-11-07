@@ -1,10 +1,9 @@
-import { QuestionMarkCircledIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
 import Link from "next/link"
 
+import HelpDialog from "@/components/help-dialog"
 import { ModeToggle } from "@/components/mode-toggle"
 import { SidebarNav } from "@/components/sidebar-nav"
-import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 
 const sidebarNavItems = [
@@ -35,11 +34,7 @@ const EventLayout = ({ children }: { children: React.ReactNode }) => {
             Karcis
           </Link>
           <div className="flex items-center gap-4">
-            {/* TODO: change to helpful dialog & move to /components */}
-            <Button variant="outline">
-              <QuestionMarkCircledIcon className="mr-2 h-4 w-4" />
-              Help
-            </Button>
+            <HelpDialog />
             <ModeToggle />
           </div>
         </div>
