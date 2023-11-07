@@ -46,7 +46,7 @@ const PublicLayout = ({ children }: { children: React.ReactNode }) => {
             <Link className={buttonVariants({ variant: "outline" })} href="/events">
               Sign in
             </Link>
-            <a href="mailto:hi@ryanmartin.me" className={buttonVariants()}>
+            <a href="https://wa.me/628127075561" target="_blank" className={buttonVariants()}>
               Get in touch
             </a>
           </div>
@@ -54,7 +54,7 @@ const PublicLayout = ({ children }: { children: React.ReactNode }) => {
       </header>
       <div className="p-4 sm:container w-full">{children}</div>
       <footer className="border-t w-full text-muted-foreground text-sm">
-        <div className="p-4 sm:container flex justify-between items-center">
+        <div className="p-4 sm:container flex justify-between items-center flex-wrap">
           <p>&copy;Copyright holder</p>
           <div className="flex gap-4 items-center">
             <Link href="/privacy">Privacy policy</Link>

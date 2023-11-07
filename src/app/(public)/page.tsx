@@ -1,5 +1,4 @@
 import {
-  ArrowRightIcon,
   DesktopIcon,
   EnvelopeClosedIcon,
   Link2Icon,
@@ -35,7 +34,11 @@ const Home = () => {
             <br className="hidden sm:block" />
             It&apos;s the easiest and most affordable way to automate your processes
           </p>
-          <a href="mailto:hi@ryanmartin.me" className={cn(buttonVariants(), "text-lg px-6 py-5")}>
+          <a
+            href="https://wa.me/628127075561"
+            target="_blank"
+            className={cn(buttonVariants(), "text-lg px-6 py-5")}
+          >
             <EnvelopeClosedIcon className="mr-4 h-6 w-6" />
             Get in touch
           </a>
@@ -152,7 +155,8 @@ const Home = () => {
           <CardFooter className="flex-col gap-2 items-start">
             <p>No monthly subscriptions. No hidden fees. Just pay for what you use.</p>
             <a
-              href="mailto:hi@ryanmartin.me"
+              href="https://wa.me/628127075561"
+              target="_blank"
               className={cn(
                 buttonVariants({ variant: "secondary" }),
                 "w-full text-center text-lg py-5",
