@@ -52,7 +52,7 @@ export const isValidCsv = (data: any[], headers: string[]) => {
   }
 
   const [name, email] = headers
-  if (headers.length !== 2 && (name.toLowerCase() !== "name" || email.toLowerCase() !== "email")) {
+  if (headers.length !== 2 || name.toLowerCase() !== "name" || email.toLowerCase() !== "email") {
     return { valid: false, message: "Incorrect file headers" }
   }
 
@@ -60,9 +60,9 @@ export const isValidCsv = (data: any[], headers: string[]) => {
   const emailSchema = z.string().email()
   const invalidRows = data
     .slice(1)
-    .map(({ name, email }, i) => [
-      { column: name, line: i + 1, ...nameSchema.safeParse(name) },
-      { column: email, line: i + 1, ...emailSchema.safeParse(email) },
+    .map((p, i) => [
+      { column: name, line: i + 1, ...nameSchema.safeParse(p[name]) },
+      { column: email, line: i + 1, ...emailSchema.safeParse(p[email]) },
     ])
     .filter(([name, email]) => !name.success || !email.success)
 
@@ -70,6 +70,7 @@ export const isValidCsv = (data: any[], headers: string[]) => {
 
   // return only the first row with error even if there are multiple
   const error = invalidRows[0][0].success ? invalidRows[0][1] : invalidRows[0][0]
+  console.log(error, data, invalidRows)
   // @ts-ignore
   const message = `Error on line ${error.line} near ${error.column}: ${error.error.issues[0].message}`
   return { valid: false, message }

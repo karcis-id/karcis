@@ -27,7 +27,6 @@ const ReviewCheckoutTab = ({ formData }: ReviewCheckoutTabProps) => {
   const router = useRouter()
   const { toast } = useToast()
 
-  // TODO: handle success, probably with a new tab
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const res = await fetch("/api/events/new", {
@@ -123,7 +122,7 @@ const ReviewCheckoutTab = ({ formData }: ReviewCheckoutTabProps) => {
           Previous
         </Link>
         <form onSubmit={handleSubmit} className="w-full">
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full whitespace-nowrap">
             Confirm payment
           </Button>
         </form>
