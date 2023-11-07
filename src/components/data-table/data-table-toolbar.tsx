@@ -66,7 +66,12 @@ export const DataTableToolbar = <TData,>({ table, setData }: DataTableToolbarPro
     <div className="flex items-center justify-between gap-2">
       <Input
         placeholder="Filter string..."
-        value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+        value={
+          (table.getColumn("email")?.getFilterValue() as string) ??
+          // HACK: users can search for present/absent using 1/0. ugly but works for now
+          (table.getColumn("status")?.getFilterValue() as string) ??
+          ""
+        }
         onChange={(event) => table.getColumn("email")?.setFilterValue(event.target.value)}
         className="max-w-sm"
       />
