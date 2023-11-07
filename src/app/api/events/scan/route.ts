@@ -36,19 +36,25 @@ export const POST = async (req: Request) => {
     return Response.json({ message: "Bad request" }, { status: 400 })
   }
 
-  const decoded = await decrypt(encoded)
+  let decoded = ""
+  try {
+    decoded = await decrypt(encoded)
+  } catch (e) {
+    console.log(e)
+    return Response.json({ message: "Error: Invalid QR code" }, { status: 400 })
+  }
 
   if (!isValidCode(decoded)) {
     return Response.json({ message: "Error: Invalid QR code" }, { status: 400 })
   }
 
   const { eventId, participantId } = getDecodedIds(decoded)
-  console.log("the fuck", eventId, participantId)
   const { data: participant, error } = await supabase
     .from("participants")
-    .select()
+    .update({ is_checked_in: true })
     .eq("event_id", eventId)
     .eq("participant_id", participantId)
+    .select()
     .single()
 
   if (error) {
@@ -56,5 +62,5 @@ export const POST = async (req: Request) => {
     return Response.json({ message: error.message }, { status: 400 })
   }
 
-  return Response.json({ participant }, { status: 200 })
+  return Response.json({ message: "Check in success", data: participant }, { status: 200 })
 }

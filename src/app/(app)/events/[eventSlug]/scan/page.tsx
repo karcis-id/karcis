@@ -15,24 +15,30 @@ import {
 } from "@/components/ui/dialog"
 import { Separator } from "@/components/ui/separator"
 
+interface ScanResult {
+  ok: boolean
+  message: string
+  data?: Participant
+}
+
 const decodeQr = async (qrText: string) => {
   const res = await fetch("/api/events/scan", {
     method: "POST",
     body: JSON.stringify({ data: qrText }),
   })
-  const { participant }: { participant: Participant } = await res.json()
-  return participant
+  const ok = res.ok
+  const { message, data } = await res.json()
+  return { ok, message, data }
 }
 
 const EventScan = () => {
-  const [participant, setParticipant] = useState<Participant>()
+  const [result, setResult] = useState<ScanResult>()
   const [isPaused, setIsPaused] = useState(false)
   const { ref } = useZxing({
     onDecodeResult: async (result) => {
+      const res = await decodeQr(result.getText())
+      setResult(res)
       setIsPaused(true)
-      const participant = await decodeQr(result.getText())
-      setParticipant(participant)
-      console.log(participant)
     },
     timeBetweenDecodingAttempts: 300,
     paused: isPaused,
@@ -45,25 +51,36 @@ const EventScan = () => {
       <Separator />
       <video ref={ref} />
       <Dialog open={isPaused} onOpenChange={setIsPaused}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Scan success</DialogTitle>
-          </DialogHeader>
-          {participant && (
-            <>
-              <p>Participant details:</p>
-              <ul className="list-disc list-inside [&>li]:ml-4">
-                <li>Name: {participant.name}</li>
-                <li>Email: {participant.email}</li>
-              </ul>
-            </>
-          )}
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button>Ok</Button>
-            </DialogClose>
-          </DialogFooter>
-        </DialogContent>
+        {result && (
+          <DialogContent
+            className={
+              result.ok
+                ? ""
+                : "destructive border-destructive bg-destructive text-destructive-foreground"
+            }
+          >
+            <DialogHeader>
+              <DialogTitle>
+                {result.ok ? "Check in successful" : "Uh oh! Something went wrong"}
+              </DialogTitle>
+            </DialogHeader>
+            {!result.data && result.message}
+            {result.data && (
+              <>
+                <p>Participant details:</p>
+                <ul className="list-disc list-inside [&>li]:ml-4">
+                  <li>Name: {result.data.name}</li>
+                  <li>Email: {result.data.email}</li>
+                </ul>
+              </>
+            )}
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant="secondary">{"  Ok  "}</Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        )}
       </Dialog>
     </div>
   )
