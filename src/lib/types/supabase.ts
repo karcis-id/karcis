@@ -11,6 +11,7 @@ export interface Database {
           email_subject: string
           event_datetime: string
           event_id: number
+          is_email_sent: boolean
           is_verified: boolean
           location: string
           name: string
@@ -22,6 +23,7 @@ export interface Database {
           email_subject?: string
           event_datetime?: string
           event_id?: number
+          is_email_sent?: boolean
           is_verified?: boolean
           location?: string
           name?: string
@@ -33,6 +35,7 @@ export interface Database {
           email_subject?: string
           event_datetime?: string
           event_id?: number
+          is_email_sent?: boolean
           is_verified?: boolean
           location?: string
           name?: string
@@ -41,6 +44,7 @@ export interface Database {
           {
             foreignKeyName: "events_creator_user_id_fkey"
             columns: ["creator_user_id"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["user_id"]
           },
@@ -78,6 +82,39 @@ export interface Database {
           {
             foreignKeyName: "participants_event_id_fkey"
             columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["event_id"]
+          },
+        ]
+      }
+      share_tokens: {
+        Row: {
+          created_at: string
+          duration: number
+          event_id: number
+          is_active: boolean
+          token_id: string
+        }
+        Insert: {
+          created_at?: string
+          duration?: number
+          event_id: number
+          is_active?: boolean
+          token_id?: string
+        }
+        Update: {
+          created_at?: string
+          duration?: number
+          event_id?: number
+          is_active?: boolean
+          token_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "share_tokens_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
             referencedRelation: "events"
             referencedColumns: ["event_id"]
           },
@@ -106,6 +143,7 @@ export interface Database {
           {
             foreignKeyName: "users_user_id_fkey"
             columns: ["user_id"]
+            isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
