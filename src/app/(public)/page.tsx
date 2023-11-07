@@ -139,7 +139,7 @@ const Home = () => {
       </section>
       <section className="space-y-8">
         <div className="text-center max-w-3xl space-y-6 mx-auto">
-          <h2 className="scroll-m-20 text-3xl font-bold tracking-tight lg:text-5xl">
+          <h2 id="pricing" className="scroll-m-20 text-3xl font-bold tracking-tight lg:text-5xl">
             Straightforward pricing
           </h2>
         </div>
