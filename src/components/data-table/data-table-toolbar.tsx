@@ -9,17 +9,19 @@ import { useToast } from "@/components/ui/use-toast"
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
   setData: Dispatch<SetStateAction<TData[]>>
+  firstId: number
 }
 
 const toggleStatuses = async <TData,>(
   table: Table<TData>,
   setData: Dispatch<SetStateAction<TData[]>>,
   toast: any, // add the type later
+  firstId: number,
 ) => {
   const selectedRowModels = table.getFilteredSelectedRowModel().rows
   if (selectedRowModels.length === 0) return
 
-  const ids = selectedRowModels.map((rm) => table.getRow(rm.id).getValue("id"))
+  const ids = selectedRowModels.map((rm) => parseInt(table.getRow(rm.id).getValue("id")) + firstId)
   const supabase = createClientComponentClient()
   // NOTE: batch updates not supported atm
   // https://github.com/supabase/postgrest-js/issues/174
@@ -58,7 +60,11 @@ const toggleStatuses = async <TData,>(
   })
 }
 
-export const DataTableToolbar = <TData,>({ table, setData }: DataTableToolbarProps<TData>) => {
+export const DataTableToolbar = <TData,>({
+  table,
+  setData,
+  firstId,
+}: DataTableToolbarProps<TData>) => {
   const { toast } = useToast()
 
   // TODO: use global filter here
@@ -77,7 +83,7 @@ export const DataTableToolbar = <TData,>({ table, setData }: DataTableToolbarPro
       />
       <Button
         variant="outline"
-        onClick={async () => await toggleStatuses(table, setData, toast)}
+        onClick={async () => await toggleStatuses(table, setData, toast, firstId)}
         className="whitespace-nowrap"
       >
         Toggle status

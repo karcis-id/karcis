@@ -19,19 +19,19 @@ const getParticipants = async (eventId: number) => {
     return []
   }
 
-  // since participants are all in the same table, subtract row ids with row[0].id - 1
-  // so that the ids start from 1
-  const firstId = participants[0].participant_id - 1
-  return participants.map((p) => ({ ...p, participant_id: p.participant_id - firstId }))
+  return participants
 }
 
 const EventDashboard = async ({ params }: { params: { eventSlug: string } }) => {
   // checking is already done in layouts.tsx, so we can assume the eventSlug is already valid
+  // since participants are all in the same table, subtract row ids with row[0].id - 1
+  // so that the ids start from 1
   const eventId = parseInt(params.eventSlug.split("-")[0].substring(1))
   const participants = await getParticipants(eventId)
+  const firstId = participants.length > 0 ? participants[0].participant_id - 1 : 0
   const data: Participant[] =
     participants?.map((p) => ({
-      id: p.participant_id,
+      id: p.participant_id - firstId,
       name: p.name,
       email: p.email,
       status: p.is_checked_in,
@@ -44,7 +44,7 @@ const EventDashboard = async ({ params }: { params: { eventSlug: string } }) => 
         <ShareLinkPopover eventId={eventId} />
       </div>
       <Separator />
-      <DataTable columns={columns} data={data} />
+      <DataTable columns={columns} data={data} firstId={firstId} />
     </div>
   )
 }

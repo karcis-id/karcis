@@ -25,11 +25,13 @@ import { DataTableToolbar } from "./data-table-toolbar"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  firstId: number
 }
 
 export const DataTable = <TData, TValue>({
   columns,
   data: tdata,
+  firstId,
 }: DataTableProps<TData, TValue>) => {
   // TODO: use global fuzzy filter
   const [globalFilter, setGlobalFilter] = useState("")
@@ -52,7 +54,7 @@ export const DataTable = <TData, TValue>({
 
   return (
     <div className="space-y-2">
-      <DataTableToolbar table={table} setData={setData} />
+      <DataTableToolbar table={table} setData={setData} firstId={firstId} />
 
       <div className="rounded-md border">
         <Table>
