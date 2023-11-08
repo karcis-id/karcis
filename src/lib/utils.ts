@@ -1,7 +1,10 @@
+import { SupabaseClient } from "@supabase/auth-helpers-nextjs"
 import { type ClassValue, clsx } from "clsx"
 import Papa from "papaparse"
 import { twMerge } from "tailwind-merge"
 import { z } from "zod"
+
+import { ShareToken } from "@/components/share-link-popover"
 
 export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs))
@@ -115,4 +118,21 @@ export const postgrestToHttpCode = (code: string) => {
   )
     return 500
   return 400
+}
+
+export const isTokenExpired = (token: ShareToken) => {
+  const millisecondsInOneHour = 3600000
+  const expireAt = new Date(token.created_at).getTime() + millisecondsInOneHour
+  return new Date(expireAt) < new Date()
+}
+
+export const setExpireToken = async (supabase: SupabaseClient, token: ShareToken) => {
+  const { error: error2 } = await supabase
+    .from("share_tokens")
+    .update({ is_active: false })
+    .eq("token_id", token.token_id)
+
+  if (error2) {
+    console.log(error2)
+  }
 }

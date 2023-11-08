@@ -36,9 +36,9 @@ const EventScan = () => {
   const [isPaused, setIsPaused] = useState(false)
   const { ref } = useZxing({
     onDecodeResult: async (result) => {
+      setIsPaused(true)
       const res = await decodeQr(result.getText())
       setResult(res)
-      setIsPaused(true)
     },
     timeBetweenDecodingAttempts: 300,
     paused: isPaused,
@@ -51,6 +51,7 @@ const EventScan = () => {
       <Separator />
       <video ref={ref} />
       <Dialog open={isPaused} onOpenChange={setIsPaused}>
+        {/* TODO: loading state */}
         {result && (
           <DialogContent
             className={
@@ -76,7 +77,7 @@ const EventScan = () => {
             )}
             <DialogFooter>
               <DialogClose asChild>
-                <Button variant="secondary">{"  Ok  "}</Button>
+                <Button variant={result.ok ? "default" : "secondary"}>Ok</Button>
               </DialogClose>
             </DialogFooter>
           </DialogContent>

@@ -8,20 +8,15 @@ import { Button } from "@/components/ui/button"
 import { CardDescription, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { useToast } from "@/components/ui/use-toast"
 import { Database } from "@/lib/types/supabase"
+import { isTokenExpired, setExpireToken } from "@/lib/utils"
 
-import { useToast } from "./ui/use-toast"
-
-type ShareToken = Database["public"]["Tables"]["share_tokens"]["Row"]
+// TODO: move db type aliases to separate file
+export type ShareToken = Database["public"]["Tables"]["share_tokens"]["Row"]
 
 interface ShareLinkPopoverProps {
   eventId: number
-}
-
-const isTokenExpired = (token: ShareToken) => {
-  const millisecondsInOneHour = 3600000
-  const expireAt = new Date(token.created_at).getTime() + millisecondsInOneHour
-  return new Date(expireAt) < new Date()
 }
 
 const getShareToken = async (eventId: number) => {
@@ -40,15 +35,18 @@ const getShareToken = async (eventId: number) => {
   const token = data[0]
   if (token && token.is_active && !isTokenExpired(token)) return token
 
+  // if token is active but expired, update db value
+  if (token && token.is_active) setExpireToken(supabase, token)
+
   // if no active/non-expired tokens, create a new one
-  const { data: newToken, error: error2 } = await supabase
+  const { data: newToken, error: error3 } = await supabase
     .from("share_tokens")
     .insert({ event_id: eventId })
     .select()
     .single()
 
-  if (error2) {
-    console.log(error2)
+  if (error3) {
+    console.log(error3)
     return undefined
   }
 

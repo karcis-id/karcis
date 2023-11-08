@@ -48,18 +48,27 @@ export const POST = async (req: Request) => {
     return Response.json({ message: "Error: Invalid QR code" }, { status: 400 })
   }
 
-  const { eventId, participantId } = getDecodedIds(decoded)
+  const { participantId } = getDecodedIds(decoded)
+
   const { data: participant, error } = await supabase
     .from("participants")
-    .update({ is_checked_in: true })
-    .eq("event_id", eventId)
-    .eq("participant_id", participantId)
     .select()
+    .eq("participant_id", participantId)
     .single()
 
   if (error) {
     console.log(error)
     return Response.json({ message: error.message }, { status: 400 })
+  }
+
+  if (!participant.is_checked_in) {
+    const { error } = await supabase.rpc("toggle_participants_statuses", {
+      ids: [participant.participant_id],
+    })
+    if (error) {
+      console.log(error)
+      return Response.json({ message: error.message }, { status: 400 })
+    }
   }
 
   return Response.json({ message: "Check in success", data: participant }, { status: 200 })
