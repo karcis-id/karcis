@@ -1,0 +1,27 @@
+.legal ul,
+.legal ol {
+  list-style-position: inside;
+}
+
+.legal ul {
+  list-style-type: disc;
+}
+
+.legal ol {
+  list-style-type: decimal;
+}
+
+.legal a {
+  color: hsl(var(--primary) / 0.9);
+  font-weight: 500;
+}
+
+.legal strong {
+  font-weight: 700;
+}
+
+.legal h3 {
+  font-weight: bold;
+  font-size: 1.1.25rem;
+  line-height: 1.75rem;
+}
