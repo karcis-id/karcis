@@ -55,7 +55,7 @@ const PublicLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="p-4 sm:container w-full">{children}</div>
       <footer className="border-t w-full text-muted-foreground text-sm">
         <div className="p-4 sm:container flex justify-between items-center flex-wrap">
-          <p>&copy;Copyright holder</p>
+          <p>&copy; 2023 Karcis.biz</p>
           <div className="flex gap-4 items-center">
             <Link href="/privacy">Privacy policy</Link>
             <Link href="/terms">Terms of service</Link>

@@ -1,11 +1,4 @@
-import {
-  DesktopIcon,
-  EnvelopeClosedIcon,
-  Link2Icon,
-  Pencil2Icon,
-  PlayIcon,
-  RocketIcon,
-} from "@radix-ui/react-icons"
+import { EnvelopeClosedIcon, PlayIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
 
 import Mascot from "@/components/mascot"
@@ -19,6 +12,8 @@ import { AspectRatio } from "@/components/ui/aspect-ratio"
 import { buttonVariants } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
+
+import { CONTACT_LINK, FAQS, FEATURES, TESTIMONIALS } from "./constants"
 
 const Home = () => {
   return (
@@ -35,7 +30,7 @@ const Home = () => {
             It&apos;s the easiest and most affordable way to automate your processes
           </p>
           <a
-            href="https://wa.me/628127075561"
+            href={CONTACT_LINK}
             target="_blank"
             className={cn(buttonVariants(), "text-lg px-6 py-5")}
           >
@@ -75,47 +70,15 @@ const Home = () => {
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-6 lg:px-16">
-          <Card className="p-4 space-y-2">
-            <div className="p-2 rounded bg-primary text-primary-foreground inline-block">
-              <RocketIcon className="h-6 w-6" />
-            </div>
-            <CardTitle>1-Click ticket sending</CardTitle>
-            <p>
-              Just fill in a few details, upload your guest list, and we&apos;ll take care of the
-              rest. With a single click, your event tickets are on their way to your attendees,
-              hassle-free.
-            </p>
-          </Card>
-          <Card className="p-4 space-y-2">
-            <div className="p-2 rounded bg-primary text-primary-foreground inline-block">
-              <Pencil2Icon className="h-6 w-6" />
-            </div>
-            <CardTitle>Customizable email templates</CardTitle>
-            <p>
-              Customize your event communications effortlessly. Our user-friendly interface lets you
-              personalize your email templates with markdown.
-            </p>
-          </Card>
-          <Card className="p-4 space-y-2">
-            <div className="p-2 rounded bg-primary text-primary-foreground inline-block">
-              <DesktopIcon className="h-6 w-6" />
-            </div>
-            <CardTitle>Web dashboard & scanner</CardTitle>
-            <p>
-              Oversee the event with our web dashboard and check in attendees using our QR scanner.
-              Everything you need for a smooth event, all in one place.
-            </p>
-          </Card>
-          <Card className="p-4 space-y-2">
-            <div className="p-2 rounded bg-primary text-primary-foreground inline-block">
-              <Link2Icon className="h-6 w-6" />
-            </div>
-            <CardTitle>Shareable scanner links</CardTitle>
-            <p>
-              No need for multiple accounts. Share secure scan links with your team or volunteers to
-              allow them to check in attendees without signin in.
-            </p>
-          </Card>
+          {FEATURES.map((f, i) => (
+            <Card key={i} className="p-4 space-y-2">
+              <div className="p-2 rounded bg-primary text-primary-foreground inline-block">
+                <f.icon className="h-6 w-6" />
+              </div>
+              <CardTitle>{f.title}</CardTitle>
+              <p>{f.desc}</p>
+            </Card>
+          ))}
         </div>
       </section>
       <section className="space-y-8">
@@ -125,21 +88,17 @@ const Home = () => {
           </h2>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[...Array(9)].map((i) => (
+          {TESTIMONIALS.map((t, i) => (
             <div key={i} className="bg-muted text-muted-foreground p-4 rounded-md space-y-2">
-              <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, maxime.
-                Facere, minima beatae repellat commodi in nemo odio quod eveniet enim non aspernatur
-                cumque veniam aliquam laborum
-              </p>
-              <p className="text-foreground font-semibold">–Author name</p>
+              <p>{t.content}</p>
+              <p className="text-foreground font-semibold">–{t.author}</p>
             </div>
           ))}
         </div>
       </section>
       <section className="space-y-8">
         <div className="text-center max-w-3xl space-y-6 mx-auto">
-          <h2 id="pricing" className="scroll-m-20 text-3xl font-bold tracking-tight lg:text-5xl">
+          <h2 className="scroll-m-20 text-3xl font-bold tracking-tight lg:text-5xl">
             Straightforward pricing
           </h2>
         </div>
@@ -155,7 +114,7 @@ const Home = () => {
           <CardFooter className="flex-col gap-2 items-start">
             <p>No monthly subscriptions. No hidden fees. Just pay for what you use.</p>
             <a
-              href="https://wa.me/628127075561"
+              href={CONTACT_LINK}
               target="_blank"
               className={cn(
                 buttonVariants({ variant: "secondary" }),
@@ -174,56 +133,12 @@ const Home = () => {
           </h2>
         </div>
         <Accordion type="single" collapsible className="max-w-4xl mx-auto">
-          <AccordionItem value="1">
-            <AccordionTrigger className="md:text-lg text-left">
-              Is Karcis suitable for small and large events?
-            </AccordionTrigger>
-            <AccordionContent className="md:text-lg text-left">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero quos officiis delectus
-              animi. Ab explicabo dolor in ullam ratione, repellat debitis non! Sit distinctio,
-              eveniet ea iure aut facere illo.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="2">
-            <AccordionTrigger className="md:text-lg text-left">
-              What kind of support and assistance do you offer to Karcis users?
-            </AccordionTrigger>
-            <AccordionContent className="md:text-lg text-left">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero quos officiis delectus
-              animi. Ab explicabo dolor in ullam ratione, repellat debitis non! Sit distinctio,
-              eveniet ea iure aut facere illo.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="3">
-            <AccordionTrigger className="md:text-lg text-left">
-              How secure is Karcis for managing my event&apos;s data?
-            </AccordionTrigger>
-            <AccordionContent className="md:text-lg text-left">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero quos officiis delectus
-              animi. Ab explicabo dolor in ullam ratione, repellat debitis non! Sit distinctio,
-              eveniet ea iure aut facere illo.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="4">
-            <AccordionTrigger className="md:text-lg text-left">
-              Can I try Karcis before committing to a subscription?
-            </AccordionTrigger>
-            <AccordionContent className="md:text-lg text-left">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero quos officiis delectus
-              animi. Ab explicabo dolor in ullam ratione, repellat debitis non! Sit distinctio,
-              eveniet ea iure aut facere illo.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="5">
-            <AccordionTrigger className="md:text-lg text-left">
-              What&apos;s included in the web dashboard and scanner feature?
-            </AccordionTrigger>
-            <AccordionContent className="md:text-lg text-left">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero quos officiis delectus
-              animi. Ab explicabo dolor in ullam ratione, repellat debitis non! Sit distinctio,
-              eveniet ea iure aut facere illo.
-            </AccordionContent>
-          </AccordionItem>
+          {FAQS.map((f, i) => (
+            <AccordionItem key={i} value={i.toString()}>
+              <AccordionTrigger className="md:text-lg text-left">{f.question}</AccordionTrigger>
+              <AccordionContent className="md:text-lg text-left">{f.answer}</AccordionContent>
+            </AccordionItem>
+          ))}
         </Accordion>
       </section>
       <section className="space-y-8 pb-24">
