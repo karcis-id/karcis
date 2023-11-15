@@ -31,6 +31,16 @@ export const TESTIMONIALS = [
     content:
       "Website Karcis sangat membantu dalam proses registrasi event kemarin, soalnya scanner bisa digunakan hanya melalui device yang memiliki kamera, proses dalam satu kali registrasi juga hanya dalam sepersekian detik, sehingga tidak membuat antrian yang panjang selama event.",
   },
+  {
+    author: "Kadek, Panitia PKPM 2023",
+    content:
+      "Website Karcisnya nolong banget sihh, apalagi dengan tinggal scan di berbagai hp bisa, jadinya ga ribet, dan sistem web nya juga ga ngeleg jadi aman lancarr, tapi menurut aku kalau bisa saat hasil akhirnya atau saat download exelnya itu sudah terbagi antara eticket yang sudah di scan dan yang belum di scan, jadi bisa katauan dan lebih mudah untuk laporannya kedepannya atau lpj acaranya. Overall aman sihh yang lain udah 👍👍👍",
+  },
+  {
+    author: "Vanessa, Panitia PKPM 2023",
+    content:
+      "Website Karcis di acara kmrn membantu BANGETT😍👍 buat registrasi acara, ratusan org dpt masuk lebih cepet gara2 website karcis. Tinggal scan QR code doang peserta lgsng bisa teregistrasi ke dalam acara 🫶🏻",
+  },
 ]
 
 export const FAQS = [

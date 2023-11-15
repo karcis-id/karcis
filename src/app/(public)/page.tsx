@@ -91,7 +91,9 @@ const Home = () => {
           {TESTIMONIALS.map((t, i) => (
             <div key={i} className="bg-muted text-muted-foreground p-4 rounded-md space-y-2">
               <p>{t.content}</p>
-              <p className="text-foreground font-semibold">–{t.author}</p>
+              <p className="text-foreground font-semibold">
+                <em>–{t.author}</em>
+              </p>
             </div>
           ))}
         </div>
