@@ -1,6 +1,6 @@
 "use client"
 
-import { ClipboardIcon, Link2Icon } from "@radix-ui/react-icons"
+import { ClipboardIcon, Link2Icon, ReloadIcon } from "@radix-ui/react-icons"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { useState } from "react"
 
@@ -60,7 +60,6 @@ const formatShareUrl = (token: ShareToken) => {
   return `${url}/scan?scanToken=${token.token_id}`
 }
 
-// TODO: add loading state
 const ShareLinkPopover = ({ eventId }: ShareLinkPopoverProps) => {
   const [token, setToken] = useState<ShareToken>()
   const { toast } = useToast()
@@ -89,17 +88,26 @@ const ShareLinkPopover = ({ eventId }: ShareLinkPopoverProps) => {
         align="end"
         className="w-[24rem] space-y-2"
       >
-        <CardTitle>Share scanner link</CardTitle>
-        <CardDescription>
-          Anyone with the link can scan QR codes on your behalf. Each link expires in 1 hour.
-        </CardDescription>
-        <div className="flex gap-2">
-          <Input value={(token && formatShareUrl(token)) ?? ""} readOnly />
-          <Button variant="secondary" className="shrink-0" onClick={handleClick}>
-            <ClipboardIcon className="mr-2 h-4 w-4" />
-            Copy link
-          </Button>
-        </div>
+        {token ? (
+          <>
+            <CardTitle>Share scanner link</CardTitle>
+            <CardDescription>
+              Anyone with the link can scan QR codes on your behalf. Each link expires in 1 hour.
+            </CardDescription>
+            <div className="flex gap-2">
+              <Input value={(token && formatShareUrl(token)) ?? ""} readOnly />
+              <Button variant="secondary" className="shrink-0" onClick={handleClick}>
+                <ClipboardIcon className="mr-2 h-4 w-4" />
+                Copy link
+              </Button>
+            </div>
+          </>
+        ) : (
+          <div className="mx-auto flex gap-2 items-center">
+            <ReloadIcon className="h-4 w-4 animate-spin" />
+            Generating link...
+          </div>
+        )}
       </PopoverContent>
     </Popover>
   )
