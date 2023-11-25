@@ -3,7 +3,9 @@ import { cookies } from "next/headers"
 
 import { Participant, columns, DataTable } from "@/components/data-table"
 import ShareLinkPopover from "@/components/share-link-popover"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import { Slider } from "@/components/ui/slider"
 import { Database } from "@/lib/types/supabase"
 
 const getParticipants = async (eventId: number) => {
@@ -36,6 +38,8 @@ const EventDashboard = async ({ params }: { params: { eventSlug: string } }) => 
       email: p.email,
       status: p.is_checked_in,
     })) ?? []
+  const nTotal = participants.length
+  const nCheckedIn = participants.filter((p) => p.is_checked_in).length
 
   return (
     <div className="space-y-4">
@@ -44,6 +48,25 @@ const EventDashboard = async ({ params }: { params: { eventSlug: string } }) => 
         <ShareLinkPopover eventId={eventId} />
       </div>
       <Separator />
+      {/* TODO: realtime updates when participant status changes */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Attendee check-ins</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-2">
+          <div className="flex justify-between items-center text-sm">
+            <p>{nCheckedIn} check-ins</p>
+            <p>{nTotal} total attendees</p>
+          </div>
+          <Slider
+            disabled
+            defaultValue={[0]}
+            value={[(nCheckedIn / nTotal) * 100]}
+            max={100}
+            step={1}
+          />
+        </CardContent>
+      </Card>
       <DataTable columns={columns} data={data} firstId={firstId} />
     </div>
   )
