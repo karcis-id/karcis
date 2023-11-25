@@ -1,9 +1,12 @@
+import { CheckCircledIcon, DownloadIcon } from "@radix-ui/react-icons"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { Table } from "@tanstack/react-table"
+import { useParams } from "next/navigation"
 import { Dispatch, SetStateAction } from "react"
 
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { useToast } from "@/components/ui/use-toast"
 
 interface DataTableToolbarProps<TData> {
@@ -65,7 +68,10 @@ export const DataTableToolbar = <TData,>({
   setData,
   firstId,
 }: DataTableToolbarProps<TData>) => {
+  const { eventSlug }: { eventSlug: string } = useParams()
   const { toast } = useToast()
+
+  const eventId = eventSlug.split("-")[0].slice(1)
 
   // TODO: use global filter here
   return (
@@ -81,13 +87,39 @@ export const DataTableToolbar = <TData,>({
         onChange={(event) => table.getColumn("email")?.setFilterValue(event.target.value)}
         className="max-w-sm"
       />
-      <Button
-        variant="outline"
-        onClick={async () => await toggleStatuses(table, setData, toast, firstId)}
-        className="whitespace-nowrap"
-      >
-        Toggle status
-      </Button>
+      <div className="flex items-center gap-2">
+        <TooltipProvider delayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <a
+                href={`/api/events/${eventId}/csv`}
+                className={buttonVariants({ variant: "outline", size: "icon" })}
+              >
+                <DownloadIcon className="h-4 w-4" />
+              </a>
+            </TooltipTrigger>
+            <TooltipContent className="bg-foreground text-background">
+              <p>Download</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        <TooltipProvider delayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={async () => await toggleStatuses(table, setData, toast, firstId)}
+              >
+                <CheckCircledIcon className="h-4 w-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent className="bg-foreground text-background">
+              <p>Toggle check-in</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
     </div>
   )
 }
