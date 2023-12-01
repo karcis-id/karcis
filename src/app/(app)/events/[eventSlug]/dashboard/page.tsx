@@ -49,23 +49,21 @@ const EventDashboard = async ({ params }: { params: { eventSlug: string } }) => 
       </div>
       <Separator />
       {/* TODO: realtime updates when participant status changes */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Attendee check-ins</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2">
-          <div className="flex justify-between items-center text-sm">
-            <p>{nCheckedIn} check-ins</p>
-            <p>{nTotal} total attendees</p>
-          </div>
-          <Slider
-            disabled
-            defaultValue={[0]}
-            value={[(nCheckedIn / nTotal) * 100]}
-            max={100}
-            step={1}
-          />
-        </CardContent>
+      <Card className="p-6 space-y-2">
+        <div className="flex justify-between items-center text-sm">
+          <p className="text-base font-bold">Attendee check-ins</p>
+          <p>
+            {nCheckedIn} of {nTotal} total attendees
+          </p>
+        </div>
+        <Slider
+          disabled
+          defaultValue={[0]}
+          value={[(nCheckedIn / nTotal) * 100]}
+          max={100}
+          step={1}
+        />
+        <p className=" text-sm">{nTotal - nCheckedIn} attendees left</p>
       </Card>
       <DataTable columns={columns} data={data} firstId={firstId} />
     </div>
